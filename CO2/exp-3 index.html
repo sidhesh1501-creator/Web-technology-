@@ -1,0 +1,2474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Experiment 03 • Scientific Calculator</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#05070d;
+    --panel:#0c111c;
+    --panel2:#111827;
+
+    --cyan:#16e6ff;
+    --blue:#5577ff;
+    --purple:#9b5cff;
+    --pink:#ff4c9b;
+
+    --green:#45f59c;
+    --orange:#ffb84d;
+
+    --text:#f5f8ff;
+    --muted:#77859a;
+
+    --border:rgba(255,255,255,.09);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+    color:var(--text);
+
+    background:
+
+    radial-gradient(
+        circle at 10% 10%,
+        rgba(22,230,255,.13),
+        transparent 28%
+    ),
+
+    radial-gradient(
+        circle at 90% 20%,
+        rgba(155,92,255,.14),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 50% 100%,
+        rgba(255,76,155,.09),
+        transparent 30%
+    ),
+
+    var(--bg);
+
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   3D GRID BACKGROUND
+===================================================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-10;
+
+    background-image:
+
+    linear-gradient(
+        rgba(255,255,255,.025) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,.025) 1px,
+        transparent 1px
+    );
+
+    background-size:
+    55px 55px;
+
+    transform:
+    perspective(700px)
+    rotateX(62deg)
+    scale(1.8)
+    translateY(30%);
+
+    transform-origin:
+    center bottom;
+
+    mask-image:
+    linear-gradient(
+        to top,
+        black,
+        transparent 75%
+    );
+
+}
+
+
+/* =====================================================
+   FLOATING LIGHTS
+===================================================== */
+
+.orb{
+
+    position:fixed;
+
+    width:330px;
+    height:330px;
+
+    border-radius:50%;
+
+    filter:blur(110px);
+
+    opacity:.18;
+
+    z-index:-5;
+
+    pointer-events:none;
+
+    animation:
+    orbMove 12s ease-in-out infinite alternate;
+
+}
+
+.orb1{
+
+    background:var(--cyan);
+
+    top:-160px;
+    left:-120px;
+
+}
+
+.orb2{
+
+    background:var(--purple);
+
+    right:-160px;
+    bottom:-100px;
+
+    animation-delay:3s;
+
+}
+
+@keyframes orbMove{
+
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(100px,80px);
+    }
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+.particle{
+
+    position:fixed;
+
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:white;
+
+    opacity:.35;
+
+    box-shadow:
+    0 0 12px var(--cyan);
+
+    z-index:-3;
+
+    animation:
+    particleMove linear infinite;
+
+}
+
+@keyframes particleMove{
+
+    from{
+        transform:
+        translateY(110vh);
+    }
+
+    to{
+        transform:
+        translateY(-10vh);
+    }
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+
+    width:min(
+        1400px,
+        94%
+    );
+
+    margin:auto;
+
+    padding:
+    20px 0 35px;
+
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+    10px 18px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:20px;
+
+    background:
+    rgba(8,12,20,.72);
+
+    backdrop-filter:
+    blur(25px);
+
+    box-shadow:
+    0 20px 70px
+    rgba(0,0,0,.3);
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+.logo{
+
+    width:45px;
+    height:45px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:14px;
+
+    font-size:20px;
+
+    font-weight:900;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cyan),
+        var(--purple)
+    );
+
+    box-shadow:
+    0 0 35px
+    rgba(22,230,255,.25);
+
+}
+
+
+.brand-name{
+
+    font-weight:900;
+
+    font-size:14px;
+
+    letter-spacing:1.5px;
+
+}
+
+
+.brand-sub{
+
+    color:#657287;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+    margin-top:3px;
+
+}
+
+
+.online{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+    9px 14px;
+
+    border-radius:30px;
+
+    border:
+    1px solid
+    rgba(69,245,156,.18);
+
+    background:
+    rgba(69,245,156,.04);
+
+    color:#75f5b1;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+
+}
+
+
+.online-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+    0 0 12px var(--green);
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    padding:
+    32px 5px 22px;
+
+}
+
+
+.tag{
+
+    color:var(--cyan);
+
+    font-size:9px;
+
+    letter-spacing:3px;
+
+    font-weight:900;
+
+    margin-bottom:8px;
+
+}
+
+
+.header h1{
+
+    font-size:
+    clamp(30px,5vw,55px);
+
+    letter-spacing:-3px;
+
+    line-height:1;
+
+}
+
+
+.header h1 span{
+
+    background:
+    linear-gradient(
+        90deg,
+        var(--cyan),
+        var(--purple),
+        var(--pink)
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+
+.header p{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    max-width:650px;
+
+    margin-top:10px;
+
+}
+
+
+/* =====================================================
+   MAIN GRID
+===================================================== */
+
+.workspace{
+
+    display:grid;
+
+    grid-template-columns:
+    minmax(380px,1fr)
+    minmax(300px,.7fr);
+
+    gap:20px;
+
+}
+
+
+/* =====================================================
+   GLASS PANEL
+===================================================== */
+
+.panel{
+
+    position:relative;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:25px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.065),
+        rgba(255,255,255,.015)
+    );
+
+    backdrop-filter:
+    blur(25px);
+
+    box-shadow:
+    0 30px 90px
+    rgba(0,0,0,.35);
+
+    overflow:hidden;
+
+}
+
+
+.panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    top:-160px;
+    right:-120px;
+
+    border-radius:50%;
+
+    background:
+    var(--cyan);
+
+    filter:blur(100px);
+
+    opacity:.06;
+
+}
+
+
+/* =====================================================
+   CALCULATOR
+===================================================== */
+
+.calculator{
+
+    padding:25px;
+
+}
+
+
+.calc-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:17px;
+
+}
+
+
+.calc-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+
+.calc-sub{
+
+    color:#66758a;
+
+    font-size:9px;
+
+    margin-top:4px;
+
+}
+
+
+.mode{
+
+    padding:
+    7px 11px;
+
+    border-radius:9px;
+
+    color:var(--cyan);
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+    border:
+    1px solid
+    rgba(22,230,255,.2);
+
+    background:
+    rgba(22,230,255,.04);
+
+}
+
+
+/* =====================================================
+   DISPLAY
+===================================================== */
+
+.display{
+
+    position:relative;
+
+    min-height:140px;
+
+    padding:20px;
+
+    border-radius:19px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.08);
+
+    background:
+
+    radial-gradient(
+        circle at 80% 20%,
+        rgba(22,230,255,.08),
+        transparent 30%
+    ),
+
+    #070b13;
+
+    box-shadow:
+    inset 0 0 50px
+    rgba(0,0,0,.4);
+
+    overflow:hidden;
+
+}
+
+
+.display::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:160px;
+    height:160px;
+
+    border-radius:50%;
+
+    right:-80px;
+    top:-90px;
+
+    background:
+    var(--cyan);
+
+    filter:blur(70px);
+
+    opacity:.08;
+
+}
+
+
+.expression{
+
+    min-height:25px;
+
+    color:#647286;
+
+    font-size:13px;
+
+    text-align:right;
+
+    word-break:break-all;
+
+}
+
+
+.result{
+
+    min-height:55px;
+
+    margin-top:8px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:end;
+
+    color:#fff;
+
+    font-size:
+    clamp(30px,5vw,48px);
+
+    font-weight:300;
+
+    letter-spacing:-2px;
+
+    word-break:break-all;
+
+    text-shadow:
+    0 0 25px
+    rgba(22,230,255,.15);
+
+}
+
+
+.result.error{
+
+    color:var(--pink);
+
+    font-size:22px;
+
+}
+
+
+/* =====================================================
+   FUNCTION BAR
+===================================================== */
+
+.function-bar{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(5,1fr);
+
+    gap:8px;
+
+    margin:
+    14px 0;
+
+}
+
+
+.function-btn{
+
+    height:38px;
+
+    border-radius:10px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    background:
+    rgba(255,255,255,.025);
+
+    color:#93a1b5;
+
+    font-size:10px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+.function-btn:hover{
+
+    color:var(--cyan);
+
+    border-color:
+    rgba(22,230,255,.3);
+
+    background:
+    rgba(22,230,255,.06);
+
+    transform:
+    translateY(-2px);
+
+}
+
+
+/* =====================================================
+   BUTTON GRID
+===================================================== */
+
+.buttons{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(5,1fr);
+
+    gap:9px;
+
+}
+
+
+.btn{
+
+    height:58px;
+
+    border-radius:14px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.07),
+        rgba(255,255,255,.025)
+    );
+
+    color:#e9eef7;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 8px 20px
+    rgba(0,0,0,.15),
+
+    inset 0 1px 0
+    rgba(255,255,255,.05);
+
+    transition:
+    transform .15s,
+    box-shadow .15s,
+    border .15s;
+
+}
+
+
+.btn:hover{
+
+    transform:
+    translateY(-3px);
+
+    border-color:
+    rgba(22,230,255,.3);
+
+    box-shadow:
+    0 12px 25px
+    rgba(0,0,0,.25);
+
+}
+
+
+.btn:active{
+
+    transform:
+    translateY(2px)
+    scale(.96);
+
+}
+
+
+.number{
+
+    color:#e9edf5;
+
+}
+
+
+.operator{
+
+    color:var(--cyan);
+
+    background:
+    rgba(22,230,255,.055);
+
+}
+
+
+.special{
+
+    color:var(--pink);
+
+    background:
+    rgba(255,76,155,.045);
+
+}
+
+
+.equals{
+
+    color:#fff;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+    );
+
+    border-color:
+    rgba(155,92,255,.3);
+
+    box-shadow:
+    0 10px 30px
+    rgba(91,119,255,.25);
+
+}
+
+
+.equals:hover{
+
+    box-shadow:
+    0 15px 35px
+    rgba(91,119,255,.4);
+
+}
+
+
+.zero{
+
+    grid-column:
+    span 2;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.history-panel{
+
+    padding:25px;
+
+}
+
+
+.history-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:17px;
+
+}
+
+
+.history-head h2{
+
+    font-size:18px;
+
+}
+
+
+.clear-history{
+
+    border:0;
+
+    background:
+    rgba(255,76,155,.06);
+
+    color:#ff7db6;
+
+    border:
+    1px solid
+    rgba(255,76,155,.15);
+
+    border-radius:9px;
+
+    padding:
+    8px 10px;
+
+    font-size:8px;
+
+    cursor:pointer;
+
+}
+
+
+.history{
+
+    min-height:470px;
+
+    max-height:520px;
+
+    overflow:auto;
+
+    padding-right:4px;
+
+}
+
+
+.history::-webkit-scrollbar{
+
+    width:4px;
+
+}
+
+
+.history::-webkit-scrollbar-thumb{
+
+    background:
+    rgba(255,255,255,.12);
+
+    border-radius:10px;
+
+}
+
+
+.empty{
+
+    height:420px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    color:#536176;
+
+}
+
+
+.empty-icon{
+
+    width:65px;
+    height:65px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:20px;
+
+    margin-bottom:15px;
+
+    font-size:25px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.07);
+
+    background:
+    rgba(255,255,255,.025);
+
+}
+
+
+.empty p{
+
+    font-size:10px;
+
+}
+
+
+.history-item{
+
+    position:relative;
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    border-radius:14px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.06);
+
+    background:
+    rgba(255,255,255,.025);
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+.history-item:hover{
+
+    border-color:
+    rgba(22,230,255,.2);
+
+    transform:
+    translateX(3px);
+
+}
+
+
+.history-expression{
+
+    color:#69778b;
+
+    font-size:10px;
+
+    word-break:break-all;
+
+}
+
+
+.history-result{
+
+    color:#fff;
+
+    font-size:18px;
+
+    margin-top:5px;
+
+}
+
+
+.history-time{
+
+    color:#48566a;
+
+    font-size:7px;
+
+    margin-top:8px;
+
+}
+
+
+/* =====================================================
+   QUICK STATS
+===================================================== */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:9px;
+
+    margin-top:14px;
+
+}
+
+
+.stat{
+
+    padding:12px;
+
+    text-align:center;
+
+    border-radius:13px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.06);
+
+    background:
+    rgba(255,255,255,.025);
+
+}
+
+
+.stat strong{
+
+    display:block;
+
+    color:var(--cyan);
+
+    font-size:17px;
+
+}
+
+
+.stat span{
+
+    display:block;
+
+    color:#5e6c80;
+
+    font-size:7px;
+
+    letter-spacing:1px;
+
+    margin-top:3px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:
+    25px 0 0;
+
+    color:#48566a;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1000px){
+
+    .workspace{
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+    .history{
+
+        min-height:250px;
+
+        max-height:400px;
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .container{
+
+        width:92%;
+
+    }
+
+    .online{
+
+        display:none;
+
+    }
+
+    .calculator,
+    .history-panel{
+
+        padding:18px;
+
+    }
+
+    .buttons{
+
+        gap:6px;
+
+    }
+
+    .btn{
+
+        height:52px;
+
+        border-radius:11px;
+
+        font-size:13px;
+
+    }
+
+    .function-bar{
+
+        gap:5px;
+
+    }
+
+    .function-btn{
+
+        font-size:8px;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+
+        animation-duration:
+        .01ms !important;
+
+        transition-duration:
+        .01ms !important;
+
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+
+<div class="container">
+
+
+<!-- ===================================================
+     NAVBAR
+=================================================== -->
+
+<header class="navbar">
+
+
+<div class="brand">
+
+    <div class="logo">
+        ∑
+    </div>
+
+    <div>
+
+        <div class="brand-name">
+            NOVA CALCULUS
+        </div>
+
+        <div class="brand-sub">
+            SCIENTIFIC COMPUTATION ENGINE
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="online">
+
+    <span class="online-dot"></span>
+
+    CALCULATOR ONLINE
+
+</div>
+
+
+</header>
+
+
+<!-- ===================================================
+     HEADER
+=================================================== -->
+
+<section class="header">
+
+    <div class="tag">
+        EXPERIMENT 03 • JAVASCRIPT MATH ENGINE
+    </div>
+
+    <h1>
+        Scientific
+        <span>Calculator.</span>
+    </h1>
+
+    <p>
+        Perform arithmetic, scientific calculations,
+        trigonometric operations, powers, logarithms
+        and more through an interactive JavaScript
+        calculation engine.
+    </p>
+
+</section>
+
+
+<!-- ===================================================
+     WORKSPACE
+=================================================== -->
+
+<main class="workspace">
+
+
+<!-- ===================================================
+     CALCULATOR
+=================================================== -->
+
+<section class="panel calculator">
+
+
+<div class="calc-top">
+
+    <div>
+
+        <div class="calc-title">
+            Scientific Calculator
+        </div>
+
+        <div class="calc-sub">
+            JavaScript • Math Object • DOM Events
+        </div>
+
+    </div>
+
+
+    <div class="mode">
+        DEG MODE
+    </div>
+
+</div>
+
+
+<!-- DISPLAY -->
+
+<div class="display">
+
+    <div
+    class="expression"
+    id="expression">
+    </div>
+
+    <div
+    class="result"
+    id="result">
+    0
+    </div>
+
+</div>
+
+
+<!-- SCIENTIFIC FUNCTIONS -->
+
+<div class="function-bar">
+
+<button
+class="function-btn"
+onclick="scientific('sin')">
+sin
+</button>
+
+<button
+class="function-btn"
+onclick="scientific('cos')">
+cos
+</button>
+
+<button
+class="function-btn"
+onclick="scientific('tan')">
+tan
+</button>
+
+<button
+class="function-btn"
+onclick="scientific('log')">
+log
+</button>
+
+<button
+class="function-btn"
+onclick="scientific('ln')">
+ln
+</button>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+
+<button
+class="btn special"
+onclick="clearAll()">
+AC
+</button>
+
+
+<button
+class="btn special"
+onclick="deleteLast()">
+⌫
+</button>
+
+
+<button
+class="btn operator"
+onclick="append('(')">
+(
+</button>
+
+
+<button
+class="btn operator"
+onclick="append(')')">
+)
+</button>
+
+
+<button
+class="btn operator"
+onclick="append('/')">
+÷
+</button>
+
+
+<button
+class="btn number"
+onclick="append('7')">
+7
+</button>
+
+
+<button
+class="btn number"
+onclick="append('8')">
+8
+</button>
+
+
+<button
+class="btn number"
+onclick="append('9')">
+9
+</button>
+
+
+<button
+class="btn operator"
+onclick="append('*')">
+×
+</button>
+
+
+<button
+class="btn operator"
+onclick="append('**2')">
+x²
+</button>
+
+
+<button
+class="btn number"
+onclick="append('4')">
+4
+</button>
+
+
+<button
+class="btn number"
+onclick="append('5')">
+5
+</button>
+
+
+<button
+class="btn number"
+onclick="append('6')">
+6
+</button>
+
+
+<button
+class="btn operator"
+onclick="append('-')">
+−
+</button>
+
+
+<button
+class="btn operator"
+onclick="scientific('sqrt')">
+√
+</button>
+
+
+<button
+class="btn number"
+onclick="append('1')">
+1
+</button>
+
+
+<button
+class="btn number"
+onclick="append('2')">
+2
+</button>
+
+
+<button
+class="btn number"
+onclick="append('3')">
+3
+</button>
+
+
+<button
+class="btn operator"
+onclick="append('+')">
++
+</button>
+
+
+<button
+class="btn operator"
+onclick="scientific('factorial')">
+n!
+</button>
+
+
+<button
+class="btn number zero"
+onclick="append('0')">
+0
+</button>
+
+
+<button
+class="btn number"
+onclick="append('.')">
+.
+</button>
+
+
+<button
+class="btn operator"
+onclick="scientific('pi')">
+π
+</button>
+
+
+<button
+class="btn equals"
+onclick="calculate()">
+=
+</button>
+
+
+</div>
+
+
+</section>
+
+
+<!-- ===================================================
+     HISTORY
+=================================================== -->
+
+<section class="panel history-panel">
+
+
+<div class="history-head">
+
+    <div>
+
+        <h2>
+            Calculation History
+        </h2>
+
+    </div>
+
+
+    <button
+    class="clear-history"
+    onclick="clearHistory()">
+
+        CLEAR
+
+    </button>
+
+</div>
+
+
+<div
+class="history"
+id="history">
+
+
+<div
+class="empty"
+id="emptyHistory">
+
+
+<div class="empty-icon">
+    ∑
+</div>
+
+<p>
+Your calculations will appear here.
+</p>
+
+</div>
+
+
+</div>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+
+<div class="stat">
+
+<strong id="calculationCount">
+0
+</strong>
+
+<span>
+CALCULATIONS
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<strong>
+JS
+</strong>
+
+<span>
+ENGINE
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<strong>
+π
+</strong>
+
+<span>
+MATH OBJECT
+</span>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+<div class="footer">
+
+    HTML • CSS GRID • JAVASCRIPT • MATH OBJECT • CLICK EVENTS
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let expression = "";
+
+let calculationHistory = [];
+
+let calculationCount = 0;
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const expressionDisplay =
+document.getElementById(
+    "expression"
+);
+
+const resultDisplay =
+document.getElementById(
+    "result"
+);
+
+const historyDisplay =
+document.getElementById(
+    "history"
+);
+
+const countDisplay =
+document.getElementById(
+    "calculationCount"
+);
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+for(
+    let i=0;
+    i<45;
+    i++
+){
+
+    const particle =
+    document.createElement(
+        "div"
+    );
+
+    particle.className =
+    "particle";
+
+    particle.style.left =
+    Math.random()*100+"%";
+
+    particle.style.animationDuration =
+    (8+Math.random()*15)+"s";
+
+    particle.style.animationDelay =
+    (-Math.random()*15)+"s";
+
+    document.body.appendChild(
+        particle
+    );
+
+}
+
+
+/* =====================================================
+   APPEND VALUE
+===================================================== */
+
+function append(value){
+
+    expression += value;
+
+    updateDisplay();
+
+}
+
+
+/* =====================================================
+   UPDATE DISPLAY
+===================================================== */
+
+function updateDisplay(){
+
+    expressionDisplay.textContent =
+    expression
+    .replaceAll("*","×")
+    .replaceAll("/","÷");
+
+
+    if(!expression){
+
+        resultDisplay.textContent =
+        "0";
+
+        return;
+
+    }
+
+}
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+function clearAll(){
+
+    expression="";
+
+    resultDisplay.textContent =
+    "0";
+
+    expressionDisplay.textContent =
+    "";
+
+    resultDisplay.classList.remove(
+        "error"
+    );
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+function deleteLast(){
+
+    expression =
+    expression.slice(
+        0,
+        -1
+    );
+
+    updateDisplay();
+
+}
+
+
+/* =====================================================
+   CALCULATE
+===================================================== */
+
+function calculate(){
+
+    if(!expression)
+        return;
+
+
+    try{
+
+        let safeExpression =
+        expression
+        .replace(/×/g,"*")
+        .replace(/÷/g,"/");
+
+
+        let answer =
+        Function(
+            '"use strict";return ('+
+            safeExpression+
+            ')'
+        )();
+
+
+        if(
+            !Number.isFinite(
+                answer
+            )
+        ){
+
+            throw new Error();
+
+        }
+
+
+        answer =
+        Number(
+            answer.toFixed(10)
+        );
+
+
+        resultDisplay.classList.remove(
+            "error"
+        );
+
+
+        resultDisplay.textContent =
+        answer;
+
+
+        addHistory(
+            expression,
+            answer
+        );
+
+
+    }
+    catch(error){
+
+        resultDisplay.classList.add(
+            "error"
+        );
+
+        resultDisplay.textContent =
+        "Invalid Expression";
+
+    }
+
+}
+
+
+/* =====================================================
+   SCIENTIFIC FUNCTIONS
+===================================================== */
+
+function scientific(type){
+
+    try{
+
+        let value;
+
+
+        /* =========================
+           PI
+        ========================= */
+
+        if(type==="pi"){
+
+            append(
+                Math.PI.toFixed(8)
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           SQRT
+        ========================= */
+
+        if(type==="sqrt"){
+
+            value =
+            getCurrentNumber();
+
+
+            if(value<0)
+                throw new Error();
+
+
+            let answer =
+            Math.sqrt(value);
+
+
+            replaceCurrentNumber(
+                answer
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           FACTORIAL
+        ========================= */
+
+        if(type==="factorial"){
+
+            value =
+            getCurrentNumber();
+
+
+            if(
+                value<0 ||
+                !Number.isInteger(
+                    value
+                )
+            ){
+
+                throw new Error();
+
+            }
+
+
+            let answer=1;
+
+
+            for(
+                let i=2;
+                i<=value;
+                i++
+            ){
+
+                answer *= i;
+
+            }
+
+
+            replaceCurrentNumber(
+                answer
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           TRIGONOMETRY
+        ========================= */
+
+        if(
+            type==="sin" ||
+            type==="cos" ||
+            type==="tan"
+        ){
+
+            value =
+            getCurrentNumber();
+
+
+            const radians =
+            value *
+            Math.PI /
+            180;
+
+
+            let answer;
+
+
+            if(type==="sin")
+                answer =
+                Math.sin(
+                    radians
+                );
+
+
+            if(type==="cos")
+                answer =
+                Math.cos(
+                    radians
+                );
+
+
+            if(type==="tan")
+                answer =
+                Math.tan(
+                    radians
+                );
+
+
+            replaceCurrentNumber(
+                Number(
+                    answer.toFixed(10)
+                )
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           LOG
+        ========================= */
+
+        if(type==="log"){
+
+            value =
+            getCurrentNumber();
+
+
+            if(value<=0)
+                throw new Error();
+
+
+            replaceCurrentNumber(
+                Math.log10(value)
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           NATURAL LOG
+        ========================= */
+
+        if(type==="ln"){
+
+            value =
+            getCurrentNumber();
+
+
+            if(value<=0)
+                throw new Error();
+
+
+            replaceCurrentNumber(
+                Math.log(value)
+            );
+
+            return;
+
+        }
+
+    }
+    catch(error){
+
+        resultDisplay.classList.add(
+            "error"
+        );
+
+        resultDisplay.textContent =
+        "Math Error";
+
+    }
+
+}
+
+
+/* =====================================================
+   GET CURRENT NUMBER
+===================================================== */
+
+function getCurrentNumber(){
+
+    const match =
+    expression.match(
+        /(-?\d*\.?\d+)$/
+    );
+
+
+    if(!match)
+        throw new Error();
+
+
+    return Number(
+        match[1]
+    );
+
+}
+
+
+/* =====================================================
+   REPLACE CURRENT NUMBER
+===================================================== */
+
+function replaceCurrentNumber(
+    value
+){
+
+    const match =
+    expression.match(
+        /(-?\d*\.?\d+)$/
+    );
+
+
+    if(!match)
+        throw new Error();
+
+
+    expression =
+    expression.slice(
+        0,
+        match.index
+    ) +
+    value;
+
+
+    resultDisplay.classList.remove(
+        "error"
+    );
+
+
+    resultDisplay.textContent =
+    Number(
+        value
+    );
+
+
+    updateDisplay();
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function addHistory(
+    exp,
+    answer
+){
+
+    calculationCount++;
+
+    countDisplay.textContent =
+    calculationCount;
+
+
+    calculationHistory.unshift({
+
+        expression:exp,
+
+        result:answer,
+
+        time:
+        new Date()
+        .toLocaleTimeString()
+
+    });
+
+
+    renderHistory();
+
+}
+
+
+/* =====================================================
+   RENDER HISTORY
+===================================================== */
+
+function renderHistory(){
+
+    if(
+        calculationHistory.length===0
+    ){
+
+        historyDisplay.innerHTML = `
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                ∑
+            </div>
+
+            <p>
+                Your calculations will appear here.
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    historyDisplay.innerHTML =
+    calculationHistory
+    .map(
+        item=>`
+
+        <div
+        class="history-item"
+        onclick="loadHistory(
+            '${item.expression}',
+            '${item.result}'
+        )">
+
+            <div
+            class="history-expression">
+
+                ${item.expression}
+
+            </div>
+
+            <div
+            class="history-result">
+
+                = ${item.result}
+
+            </div>
+
+            <div
+            class="history-time">
+
+                ${item.time}
+
+            </div>
+
+        </div>
+
+        `
+    )
+    .join("");
+
+}
+
+
+/* =====================================================
+   LOAD HISTORY
+===================================================== */
+
+function loadHistory(
+    exp,
+    result
+){
+
+    expression=exp;
+
+    expressionDisplay.textContent =
+    exp
+    .replaceAll("*","×")
+    .replaceAll("/","÷");
+
+    resultDisplay.textContent =
+    result;
+
+}
+
+
+/* =====================================================
+   CLEAR HISTORY
+===================================================== */
+
+function clearHistory(){
+
+    calculationHistory=[];
+
+    calculationCount=0;
+
+    countDisplay.textContent =
+    "0";
+
+    renderHistory();
+
+}
+
+
+/* =====================================================
+   KEYBOARD SUPPORT
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        const key =
+        event.key;
+
+
+        if(
+            /[0-9+\-*/().]/.test(key)
+        ){
+
+            append(key);
+
+        }
+
+
+        else if(
+            key==="Enter" ||
+            key==="="
+        ){
+
+            calculate();
+
+        }
+
+
+        else if(
+            key==="Backspace"
+        ){
+
+            deleteLast();
+
+        }
+
+
+        else if(
+            key==="Escape"
+        ){
+
+            clearAll();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INITIAL DISPLAY
+===================================================== */
+
+updateDisplay();
+
+</script>
+
+</body>
+</html>

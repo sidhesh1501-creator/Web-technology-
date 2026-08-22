@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nova Institute | College Website</title>
+
+<style>
+
+/* =========================
+   BASIC RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    color:white;
+
+    background:#070b1c;
+
+    overflow-x:hidden;
+}
+
+
+/* =========================
+   PREMIUM BACKGROUND
+========================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:600px;
+    height:600px;
+
+    left:-200px;
+    top:100px;
+
+    border-radius:50%;
+
+    background:#0066ff;
+
+    filter:blur(180px);
+
+    opacity:.25;
+
+    z-index:-2;
+}
+
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:600px;
+    height:600px;
+
+    right:-250px;
+    bottom:-150px;
+
+    border-radius:50%;
+
+    background:#a000ff;
+
+    filter:blur(180px);
+
+    opacity:.25;
+
+    z-index:-2;
+}
+
+
+/* 3D GRID */
+
+.background-grid{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-3;
+
+    opacity:.3;
+
+    background-image:
+
+    linear-gradient(
+        rgba(0,220,255,.08) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(0,220,255,.08) 1px,
+        transparent 1px
+    );
+
+    background-size:55px 55px;
+
+    transform:
+    perspective(700px)
+    rotateX(55deg)
+    scale(1.6);
+
+    transform-origin:center bottom;
+
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    padding:18px 0;
+
+    background:
+    rgba(5,9,25,.75);
+
+    backdrop-filter:blur(20px);
+
+    border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
+}
+
+
+.navbar{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+
+/* LOGO */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+
+.logo-box{
+
+    width:48px;
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    background:
+    linear-gradient(
+        135deg,
+        #00d9ff,
+        #6650ff
+    );
+
+    box-shadow:
+    0 10px 35px
+    rgba(0,190,255,.3);
+}
+
+
+.logo-text{
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    font-size:14px;
+}
+
+
+.logo-small{
+
+    display:block;
+
+    color:#71809a;
+
+    font-size:8px;
+
+    margin-top:4px;
+
+    letter-spacing:1px;
+}
+
+
+/* MENU */
+
+.menu{
+
+    display:flex;
+
+    gap:8px;
+
+    list-style:none;
+}
+
+
+.menu a{
+
+    display:block;
+
+    padding:11px 15px;
+
+    color:#aab4c8;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    border-radius:10px;
+
+    transition:.3s;
+}
+
+
+.menu a:hover{
+
+    color:#00eaff;
+
+    background:
+    rgba(0,220,255,.08);
+}
+
+
+.menu .admission{
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #00cfff,
+        #694cff
+    );
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    min-height:650px;
+
+    display:grid;
+
+    grid-template-columns:
+    1.1fr .9fr;
+
+    align-items:center;
+
+    gap:60px;
+
+    padding:
+    70px 0;
+}
+
+
+/* HERO LEFT */
+
+.tag{
+
+    display:inline-block;
+
+    padding:9px 16px;
+
+    border:
+    1px solid
+    rgba(0,220,255,.3);
+
+    border-radius:50px;
+
+    color:#00eaff;
+
+    background:
+    rgba(0,220,255,.06);
+
+    font-size:9px;
+
+    letter-spacing:2px;
+}
+
+
+.hero h1{
+
+    margin-top:25px;
+
+    font-size:
+    clamp(45px,7vw,82px);
+
+    line-height:.95;
+
+    letter-spacing:-4px;
+}
+
+
+.gradient-text{
+
+    background:
+    linear-gradient(
+        90deg,
+        #00eaff,
+        #6d5cff,
+        #ed55ba
+    );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+
+.hero p{
+
+    max-width:600px;
+
+    margin-top:25px;
+
+    color:#8793a9;
+
+    font-size:14px;
+
+    line-height:1.8;
+}
+
+
+.buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:30px;
+}
+
+
+.btn{
+
+    display:inline-block;
+
+    padding:15px 22px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    transition:.3s;
+}
+
+
+.btn-primary{
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #00cfff,
+        #674cff
+    );
+
+    box-shadow:
+    0 15px 35px
+    rgba(70,80,255,.3);
+}
+
+
+.btn-primary:hover{
+
+    transform:
+    translateY(-5px);
+
+    box-shadow:
+    0 20px 45px
+    rgba(70,80,255,.5);
+}
+
+
+.btn-secondary{
+
+    color:#aeb8ca;
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    background:
+    rgba(255,255,255,.03);
+}
+
+
+.btn-secondary:hover{
+
+    color:white;
+
+    border-color:#00d9ff;
+}
+
+
+/* =========================
+   3D CAMPUS CARD
+========================= */
+
+.visual{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    perspective:1000px;
+
+    min-height:450px;
+}
+
+
+.card3d{
+
+    position:relative;
+
+    width:360px;
+
+    height:400px;
+
+    border-radius:30px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.14),
+        rgba(255,255,255,.035)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.15);
+
+    box-shadow:
+    25px 35px 80px
+    rgba(0,0,0,.55);
+
+    transform:
+    rotateY(-12deg)
+    rotateX(5deg);
+
+    transition:.5s;
+
+    overflow:hidden;
+}
+
+
+.card3d:hover{
+
+    transform:
+    rotateY(0)
+    rotateX(0)
+    translateY(-12px);
+}
+
+
+/* LIGHT EFFECT */
+
+.card3d::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    background:#00eaff;
+
+    filter:blur(100px);
+
+    opacity:.12;
+
+    top:-100px;
+    right:-100px;
+}
+
+
+/* CAMPUS BUILDING */
+
+.building{
+
+    position:absolute;
+
+    width:230px;
+
+    height:190px;
+
+    left:50%;
+
+    top:85px;
+
+    transform:
+    translateX(-50%);
+
+    border-radius:
+    12px 12px 5px 5px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #162b57,
+        #080d20
+    );
+
+    border:
+    1px solid
+    rgba(0,220,255,.3);
+
+    box-shadow:
+    0 25px 50px
+    rgba(0,0,0,.5);
+}
+
+
+/* ROOF */
+
+.roof{
+
+    position:absolute;
+
+    left:50%;
+
+    top:-45px;
+
+    transform:
+    translateX(-50%);
+
+    width:260px;
+
+    height:55px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #00dfff,
+        #684cff
+    );
+
+    clip-path:
+    polygon(
+        50% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+
+/* WINDOWS */
+
+.window-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+
+    padding:30px 20px;
+}
+
+
+.window{
+
+    height:30px;
+
+    border-radius:5px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #00eaff,
+        #6655ff
+    );
+
+    box-shadow:
+    0 0 15px
+    rgba(0,220,255,.4);
+}
+
+
+/* DOOR */
+
+.door{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:0;
+
+    transform:
+    translateX(-50%);
+
+    width:48px;
+
+    height:75px;
+
+    border-radius:
+    7px 7px 0 0;
+
+    background:#030713;
+}
+
+
+/* CARD TEXT */
+
+.card-title{
+
+    position:absolute;
+
+    bottom:35px;
+
+    left:30px;
+}
+
+
+.card-title small{
+
+    color:#00eaff;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+}
+
+
+.card-title h3{
+
+    margin-top:7px;
+
+    font-size:23px;
+}
+
+
+/* FLOATING INFO */
+
+.info{
+
+    position:absolute;
+
+    padding:14px 18px;
+
+    border-radius:15px;
+
+    background:
+    rgba(6,12,30,.9);
+
+    border:
+    1px solid
+    rgba(255,255,255,.12);
+
+    box-shadow:
+    0 20px 40px
+    rgba(0,0,0,.35);
+
+    font-size:9px;
+
+    z-index:5;
+}
+
+
+.info strong{
+
+    display:block;
+
+    color:#00eaff;
+
+    font-size:19px;
+
+    margin-bottom:3px;
+}
+
+
+.info-one{
+
+    left:-25px;
+
+    top:70px;
+}
+
+
+.info-two{
+
+    right:-25px;
+
+    bottom:70px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+
+    padding:90px 0;
+
+    scroll-margin-top:80px;
+}
+
+
+.heading{
+
+    text-align:center;
+
+    margin-bottom:45px;
+}
+
+
+.heading span{
+
+    color:#00eaff;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+}
+
+
+.heading h2{
+
+    margin-top:12px;
+
+    font-size:
+    clamp(32px,5vw,50px);
+}
+
+
+.heading p{
+
+    max-width:600px;
+
+    margin:15px auto 0;
+
+    color:#748097;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:18px;
+}
+
+
+.stat{
+
+    padding:30px;
+
+    text-align:center;
+
+    border-radius:20px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid
+    rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+
+.stat:hover{
+
+    transform:
+    translateY(-8px);
+
+    border-color:
+    rgba(0,220,255,.3);
+}
+
+
+.stat h3{
+
+    font-size:34px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #00eaff,
+        #7955ff
+    );
+
+    color:transparent;
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+}
+
+
+.stat p{
+
+    margin-top:8px;
+
+    color:#748097;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================
+   DEPARTMENTS
+========================= */
+
+.departments{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+}
+
+
+.department{
+
+    padding:28px;
+
+    min-height:230px;
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.08),
+        rgba(255,255,255,.025)
+    );
+
+    border:
+    1px solid
+    rgba(255,255,255,.09);
+
+    transition:.4s;
+}
+
+
+.department:hover{
+
+    transform:
+    translateY(-10px);
+
+    border-color:
+    rgba(0,220,255,.35);
+
+    box-shadow:
+    0 25px 50px
+    rgba(0,0,0,.3);
+}
+
+
+.icon{
+
+    width:55px;
+    height:55px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    border-radius:15px;
+
+    font-size:23px;
+
+    background:
+    rgba(0,220,255,.08);
+
+    border:
+    1px solid
+    rgba(0,220,255,.2);
+}
+
+
+.department h3{
+
+    margin-top:20px;
+
+    font-size:19px;
+}
+
+
+.department p{
+
+    margin-top:10px;
+
+    color:#748097;
+
+    font-size:10px;
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   FACILITIES
+========================= */
+
+.facilities{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:18px;
+}
+
+
+.facility{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+
+.facility:hover{
+
+    transform:
+    translateX(8px);
+
+    background:
+    rgba(0,220,255,.05);
+}
+
+
+.facility .icon{
+
+    min-width:50px;
+
+    width:50px;
+    height:50px;
+}
+
+
+.facility h3{
+
+    font-size:14px;
+}
+
+
+.facility p{
+
+    margin-top:5px;
+
+    color:#748097;
+
+    font-size:9px;
+}
+
+
+/* =========================
+   ADMISSION
+========================= */
+
+.admission-box{
+
+    padding:70px 30px;
+
+    text-align:center;
+
+    border-radius:30px;
+
+    background:
+
+    radial-gradient(
+        circle at center,
+        rgba(0,220,255,.12),
+        transparent 60%
+    ),
+
+    rgba(255,255,255,.04);
+
+    border:
+    1px solid
+    rgba(255,255,255,.1);
+}
+
+
+.admission-box h2{
+
+    font-size:
+    clamp(32px,5vw,55px);
+}
+
+
+.admission-box p{
+
+    max-width:600px;
+
+    margin:15px auto 30px;
+
+    color:#7c879d;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    padding:35px 0;
+
+    text-align:center;
+
+    border-top:
+    1px solid
+    rgba(255,255,255,.08);
+
+    color:#59657b;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .hero{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+    }
+
+    .hero p{
+
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .buttons{
+
+        justify-content:center;
+    }
+
+    .visual{
+
+        margin-top:30px;
+    }
+
+    .stats{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .departments{
+
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .menu{
+
+        display:none;
+    }
+
+    .hero{
+
+        padding-top:50px;
+    }
+
+    .hero h1{
+
+        font-size:48px;
+
+        letter-spacing:-3px;
+    }
+
+    .card3d{
+
+        width:290px;
+
+        height:350px;
+    }
+
+    .building{
+
+        width:190px;
+
+        height:165px;
+
+        top:70px;
+    }
+
+    .roof{
+
+        width:215px;
+    }
+
+    .window-grid{
+
+        gap:8px;
+
+        padding:25px 15px;
+    }
+
+    .window{
+
+        height:25px;
+    }
+
+    .info-one{
+
+        left:-5px;
+    }
+
+    .info-two{
+
+        right:-5px;
+    }
+
+    .departments{
+
+        grid-template-columns:1fr;
+    }
+
+    .facilities{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+@media(max-width:450px){
+
+    .container{
+
+        width:92%;
+    }
+
+    .hero h1{
+
+        font-size:40px;
+    }
+
+    .buttons{
+
+        flex-direction:column;
+    }
+
+    .btn{
+
+        width:100%;
+
+        text-align:center;
+    }
+
+    .stats{
+
+        grid-template-columns:1fr;
+    }
+
+    .visual{
+
+        min-height:390px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="background-grid"></div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="container">
+
+<nav class="navbar">
+
+
+<div class="logo">
+
+<div class="logo-box">
+N
+</div>
+
+<div>
+
+<div class="logo-text">
+NOVA INSTITUTE
+</div>
+
+<span class="logo-small">
+EMPOWER • INNOVATE • INSPIRE
+</span>
+
+</div>
+
+</div>
+
+
+<ul class="menu">
+
+<li>
+<a href="#home">HOME</a>
+</li>
+
+<li>
+<a href="#about">ABOUT</a>
+</li>
+
+<li>
+<a href="#departments">DEPARTMENTS</a>
+</li>
+
+<li>
+<a href="#facilities">FACILITIES</a>
+</li>
+
+<li>
+<a
+href="#admission"
+class="admission">
+
+ADMISSIONS
+
+</a>
+</li>
+
+</ul>
+
+
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="home">
+
+<div class="container">
+
+<div class="hero">
+
+
+<div>
+
+<span class="tag">
+
+✦ WELCOME TO NOVA INSTITUTE
+
+</span>
+
+
+<h1>
+
+CREATE YOUR
+
+<span class="gradient-text">
+
+FUTURE
+
+</span>
+
+TODAY.
+
+</h1>
+
+
+<p>
+
+Discover a modern academic environment where
+innovation, technology and knowledge come together.
+Nova Institute provides students with the skills,
+experience and opportunities required to build a
+successful future.
+
+</p>
+
+
+<div class="buttons">
+
+<a
+href="#admission"
+class="btn btn-primary">
+
+START YOUR JOURNEY →
+
+</a>
+
+
+<a
+href="#departments"
+class="btn btn-secondary">
+
+EXPLORE PROGRAMS
+
+</a>
+
+</div>
+
+</div>
+
+
+<!-- 3D VISUAL -->
+
+<div class="visual">
+
+
+<div class="info info-one">
+
+<strong>98%</strong>
+
+Graduate Success
+
+</div>
+
+
+<div class="card3d">
+
+
+<div class="building">
+
+<div class="roof"></div>
+
+
+<div class="window-grid">
+
+<div class="window"></div>
+<div class="window"></div>
+<div class="window"></div>
+<div class="window"></div>
+
+<div class="window"></div>
+<div class="window"></div>
+<div class="window"></div>
+<div class="window"></div>
+
+<div class="window"></div>
+<div class="window"></div>
+<div class="window"></div>
+<div class="window"></div>
+
+</div>
+
+
+<div class="door"></div>
+
+</div>
+
+
+<div class="card-title">
+
+<small>
+NOVA CAMPUS
+</small>
+
+<h3>
+Future Starts Here
+</h3>
+
+</div>
+
+
+</div>
+
+
+<div class="info info-two">
+
+<strong>25+</strong>
+
+Years Excellence
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+
+<div class="container">
+
+
+<div class="heading">
+
+<span>ABOUT NOVA</span>
+
+<h2>
+Education Beyond Limits
+</h2>
+
+<p>
+
+A student-focused institution built around
+academic excellence, practical learning and
+innovation.
+
+</p>
+
+</div>
+
+
+<div class="stats">
+
+
+<div class="stat">
+
+<h3>25+</h3>
+
+<p>
+YEARS OF EXCELLENCE
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>12K+</h3>
+
+<p>
+STUDENTS
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>150+</h3>
+
+<p>
+FACULTY MEMBERS
+</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>40+</h3>
+
+<p>
+PROGRAMS
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     DEPARTMENTS
+========================= -->
+
+<section id="departments">
+
+<div class="container">
+
+
+<div class="heading">
+
+<span>ACADEMICS</span>
+
+<h2>
+Explore Departments
+</h2>
+
+<p>
+
+Choose a program that matches your ambition
+and start building your professional future.
+
+</p>
+
+</div>
+
+
+<div class="departments">
+
+
+<div class="department">
+
+<div class="icon">
+💻
+</div>
+
+<h3>
+Computer Science
+</h3>
+
+<p>
+
+Software development, artificial intelligence,
+data science, cloud computing and modern
+technologies.
+
+</p>
+
+</div>
+
+
+<div class="department">
+
+<div class="icon">
+⚙️
+</div>
+
+<h3>
+Engineering
+</h3>
+
+<p>
+
+Practical engineering education combined with
+innovation, research and industry exposure.
+
+</p>
+
+</div>
+
+
+<div class="department">
+
+<div class="icon">
+📊
+</div>
+
+<h3>
+Management
+</h3>
+
+<p>
+
+Business, finance, marketing, entrepreneurship
+and leadership programs.
+
+</p>
+
+</div>
+
+
+<div class="department">
+
+<div class="icon">
+🧬
+</div>
+
+<h3>
+Life Sciences
+</h3>
+
+<p>
+
+Modern scientific education with practical
+laboratories and research opportunities.
+
+</p>
+
+</div>
+
+
+<div class="department">
+
+<div class="icon">
+🎨
+</div>
+
+<h3>
+Design & Media
+</h3>
+
+<p>
+
+Creative design, digital media, visual
+communication and innovative thinking.
+
+</p>
+
+</div>
+
+
+<div class="department">
+
+<div class="icon">
+🌐
+</div>
+
+<h3>
+Information Technology
+</h3>
+
+<p>
+
+Networks, web development, cybersecurity,
+databases and enterprise technologies.
+
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FACILITIES
+========================= -->
+
+<section id="facilities">
+
+<div class="container">
+
+
+<div class="heading">
+
+<span>CAMPUS LIFE</span>
+
+<h2>
+World-Class Facilities
+</h2>
+
+<p>
+
+Everything students need to learn,
+experiment, collaborate and grow.
+
+</p>
+
+</div>
+
+
+<div class="facilities">
+
+
+<div class="facility">
+
+<div class="icon">
+🔬
+</div>
+
+<div>
+
+<h3>
+Advanced Laboratories
+</h3>
+
+<p>
+Hands-on practical learning.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="facility">
+
+<div class="icon">
+📚
+</div>
+
+<div>
+
+<h3>
+Digital Library
+</h3>
+
+<p>
+Modern digital learning resources.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="facility">
+
+<div class="icon">
+🏆
+</div>
+
+<div>
+
+<h3>
+Innovation Center
+</h3>
+
+<p>
+Projects, research and startups.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="facility">
+
+<div class="icon">
+🏟️
+</div>
+
+<div>
+
+<h3>
+Sports Complex
+</h3>
+
+<p>
+Fitness and competitive sports.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="facility">
+
+<div class="icon">
+🌱
+</div>
+
+<div>
+
+<h3>
+Green Campus
+</h3>
+
+<p>
+Clean and sustainable environment.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="facility">
+
+<div class="icon">
+🤝
+</div>
+
+<div>
+
+<h3>
+Student Community
+</h3>
+
+<p>
+Clubs, events and activities.
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ADMISSION
+========================= -->
+
+<section id="admission">
+
+<div class="container">
+
+<div class="admission-box">
+
+<h2>
+Start Your Journey.
+</h2>
+
+<p>
+
+Your future begins with one decision.
+Explore our programs and take the next step
+towards your goals.
+
+</p>
+
+
+<a
+href="mailto:admissions@novainstitute.edu"
+class="btn btn-primary">
+
+CONTACT ADMISSIONS →
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="container">
+
+NOVA INSTITUTE
+&nbsp; • &nbsp;
+EXPERIMENT 05
+&nbsp; • &nbsp;
+RESPONSIVE COLLEGE WEBSITE
+
+</div>
+
+</footer>
+
+
+</body>
+
+</html>

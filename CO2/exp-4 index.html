@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NOVA • Student Result Analytics</title>
+
+<style>
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root{
+
+    --bg:#05070d;
+    --panel:rgba(14,19,31,.78);
+    --panel2:#101827;
+
+    --cyan:#18e7ff;
+    --blue:#4d78ff;
+    --purple:#9b5cff;
+    --pink:#ff4fa3;
+
+    --green:#42f59b;
+    --yellow:#ffd166;
+    --red:#ff5577;
+
+    --white:#f7faff;
+    --muted:#75839a;
+
+    --border:rgba(255,255,255,.09);
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+    color:var(--white);
+
+    background:
+
+    radial-gradient(
+        circle at 10% 10%,
+        rgba(24,231,255,.12),
+        transparent 28%
+    ),
+
+    radial-gradient(
+        circle at 90% 10%,
+        rgba(155,92,255,.14),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 50% 100%,
+        rgba(255,79,163,.10),
+        transparent 32%
+    ),
+
+    var(--bg);
+
+    overflow-x:hidden;
+
+}
+
+
+/* =====================================================
+   3D FLOOR
+===================================================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-20;
+
+    background-image:
+
+    linear-gradient(
+        rgba(24,231,255,.035) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(24,231,255,.035) 1px,
+        transparent 1px
+    );
+
+    background-size:
+    55px 55px;
+
+    transform:
+    perspective(650px)
+    rotateX(60deg)
+    scale(1.8)
+    translateY(34%);
+
+    transform-origin:
+    center bottom;
+
+    mask-image:
+    linear-gradient(
+        to top,
+        black,
+        transparent 78%
+    );
+
+}
+
+
+/* =====================================================
+   GLOW ORBS
+===================================================== */
+
+.orb{
+
+    position:fixed;
+
+    width:330px;
+    height:330px;
+
+    border-radius:50%;
+
+    filter:blur(110px);
+
+    opacity:.18;
+
+    z-index:-10;
+
+    pointer-events:none;
+
+    animation:
+    floating 12s ease-in-out infinite alternate;
+
+}
+
+
+.orb.one{
+
+    background:var(--cyan);
+
+    left:-150px;
+    top:-120px;
+
+}
+
+
+.orb.two{
+
+    background:var(--purple);
+
+    right:-150px;
+    bottom:-120px;
+
+    animation-delay:3s;
+
+}
+
+
+@keyframes floating{
+
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(100px,70px);
+    }
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+.particle{
+
+    position:fixed;
+
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:white;
+
+    opacity:.35;
+
+    box-shadow:
+    0 0 12px var(--cyan);
+
+    z-index:-5;
+
+    animation:
+    rise linear infinite;
+
+}
+
+
+@keyframes rise{
+
+    from{
+        transform:translateY(105vh);
+    }
+
+    to{
+        transform:translateY(-10vh);
+    }
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+
+    width:min(
+        1450px,
+        94%
+    );
+
+    margin:auto;
+
+    padding:
+    20px 0 40px;
+
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+    10px 18px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:20px;
+
+    background:
+    rgba(8,12,20,.75);
+
+    backdrop-filter:
+    blur(25px);
+
+    box-shadow:
+    0 25px 80px
+    rgba(0,0,0,.35);
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+.logo{
+
+    width:45px;
+    height:45px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:14px;
+
+    font-weight:900;
+
+    font-size:20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cyan),
+        var(--purple)
+    );
+
+    box-shadow:
+    0 0 35px
+    rgba(24,231,255,.25);
+
+}
+
+
+.brand-title{
+
+    font-size:14px;
+
+    font-weight:900;
+
+    letter-spacing:1.5px;
+
+}
+
+
+.brand-sub{
+
+    color:#68768b;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+    margin-top:3px;
+
+}
+
+
+.status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+    9px 14px;
+
+    border-radius:30px;
+
+    border:
+    1px solid
+    rgba(66,245,155,.18);
+
+    background:
+    rgba(66,245,155,.04);
+
+    color:#71f5b0;
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+}
+
+
+.status-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+    0 0 12px var(--green);
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    padding:
+    38px 5px 25px;
+
+}
+
+
+.eyebrow{
+
+    color:var(--cyan);
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    margin-bottom:10px;
+
+}
+
+
+.hero h1{
+
+    font-size:
+    clamp(32px,5vw,60px);
+
+    line-height:.95;
+
+    letter-spacing:-3px;
+
+}
+
+
+.hero h1 span{
+
+    background:
+    linear-gradient(
+        90deg,
+        var(--cyan),
+        var(--purple),
+        var(--pink)
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+
+.hero p{
+
+    max-width:720px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin-top:12px;
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+}
+
+
+.stat-card{
+
+    position:relative;
+
+    padding:19px;
+
+    min-height:125px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.065),
+        rgba(255,255,255,.015)
+    );
+
+    backdrop-filter:
+    blur(20px);
+
+    overflow:hidden;
+
+    box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.25);
+
+    transition:.3s;
+
+}
+
+
+.stat-card:hover{
+
+    transform:
+    translateY(-5px);
+
+    border-color:
+    rgba(24,231,255,.2);
+
+}
+
+
+.stat-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    right:-60px;
+    bottom:-60px;
+
+    border-radius:50%;
+
+    background:
+    var(--cyan);
+
+    filter:blur(50px);
+
+    opacity:.08;
+
+}
+
+
+.stat-icon{
+
+    font-size:20px;
+
+    margin-bottom:12px;
+
+}
+
+
+.stat-label{
+
+    color:#68768a;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+}
+
+
+.stat-value{
+
+    margin-top:5px;
+
+    font-size:27px;
+
+    font-weight:800;
+
+}
+
+
+.stat-value.cyan{
+    color:var(--cyan);
+}
+
+.stat-value.green{
+    color:var(--green);
+}
+
+.stat-value.purple{
+    color:#b58cff;
+}
+
+.stat-value.yellow{
+    color:var(--yellow);
+}
+
+
+/* =====================================================
+   MAIN GRID
+===================================================== */
+
+.main-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    370px 1fr;
+
+    gap:18px;
+
+}
+
+
+/* =====================================================
+   PANEL
+===================================================== */
+
+.panel{
+
+    border:
+    1px solid var(--border);
+
+    border-radius:24px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.055),
+        rgba(255,255,255,.012)
+    );
+
+    backdrop-filter:
+    blur(25px);
+
+    box-shadow:
+    0 30px 90px
+    rgba(0,0,0,.35);
+
+    overflow:hidden;
+
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-panel{
+
+    padding:24px;
+
+}
+
+
+.panel-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+
+.panel-sub{
+
+    color:#657287;
+
+    font-size:9px;
+
+    margin-top:4px;
+
+    margin-bottom:22px;
+
+}
+
+
+.field{
+
+    margin-bottom:14px;
+
+}
+
+
+.field label{
+
+    display:block;
+
+    color:#8996aa;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+
+    margin-bottom:7px;
+
+}
+
+
+.field input{
+
+    width:100%;
+
+    height:45px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.08);
+
+    border-radius:12px;
+
+    outline:none;
+
+    background:
+    rgba(0,0,0,.22);
+
+    color:white;
+
+    padding:
+    0 13px;
+
+    font-size:12px;
+
+    transition:.2s;
+
+}
+
+
+.field input:focus{
+
+    border-color:
+    rgba(24,231,255,.5);
+
+    box-shadow:
+    0 0 0 3px
+    rgba(24,231,255,.07);
+
+}
+
+
+.subject-title{
+
+    color:#657287;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+    margin:
+    20px 0 10px;
+
+}
+
+
+.subject-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:9px;
+
+}
+
+
+.subject input{
+
+    height:42px;
+
+}
+
+
+.add-btn{
+
+    width:100%;
+
+    height:48px;
+
+    margin-top:18px;
+
+    border:0;
+
+    border-radius:13px;
+
+    color:white;
+
+    font-weight:800;
+
+    letter-spacing:.5px;
+
+    cursor:pointer;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--blue),
+        var(--purple)
+    );
+
+    box-shadow:
+    0 12px 30px
+    rgba(77,120,255,.25);
+
+    transition:.2s;
+
+}
+
+
+.add-btn:hover{
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 16px 40px
+    rgba(77,120,255,.4);
+
+}
+
+
+.add-btn:active{
+
+    transform:
+    translateY(1px);
+
+}
+
+
+/* =====================================================
+   RESULTS PANEL
+===================================================== */
+
+.results-panel{
+
+    padding:24px;
+
+}
+
+
+.results-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+
+.search{
+
+    width:210px;
+
+    height:38px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.08);
+
+    border-radius:10px;
+
+    background:
+    rgba(0,0,0,.2);
+
+    color:white;
+
+    outline:none;
+
+    padding:
+    0 12px;
+
+    font-size:10px;
+
+}
+
+
+.table-wrap{
+
+    overflow-x:auto;
+
+    border:
+    1px solid
+    rgba(255,255,255,.06);
+
+    border-radius:16px;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:800px;
+
+}
+
+
+thead{
+
+    background:
+    rgba(24,231,255,.035);
+
+}
+
+
+th{
+
+    text-align:left;
+
+    color:#66758a;
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+    padding:14px 12px;
+
+    border-bottom:
+    1px solid
+    rgba(255,255,255,.07);
+
+}
+
+
+td{
+
+    padding:14px 12px;
+
+    font-size:10px;
+
+    color:#c8d1df;
+
+    border-bottom:
+    1px solid
+    rgba(255,255,255,.045);
+
+}
+
+
+tbody tr{
+
+    transition:.2s;
+
+}
+
+
+tbody tr:hover{
+
+    background:
+    rgba(24,231,255,.035);
+
+}
+
+
+.student-name{
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+
+.reg{
+
+    color:#68768a;
+
+    font-size:8px;
+
+}
+
+
+.marks{
+
+    font-weight:700;
+
+}
+
+
+.total{
+
+    color:var(--cyan);
+
+    font-weight:800;
+
+}
+
+
+.percentage{
+
+    color:#aebaff;
+
+    font-weight:700;
+
+}
+
+
+.grade{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:32px;
+
+    height:24px;
+
+    border-radius:7px;
+
+    font-weight:800;
+
+    font-size:8px;
+
+}
+
+
+.grade-A{
+
+    color:var(--green);
+
+    background:
+    rgba(66,245,155,.08);
+
+}
+
+
+.grade-B{
+
+    color:var(--cyan);
+
+    background:
+    rgba(24,231,255,.08);
+
+}
+
+
+.grade-C{
+
+    color:var(--yellow);
+
+    background:
+    rgba(255,209,102,.08);
+
+}
+
+
+.grade-D{
+
+    color:#ff9c69;
+
+    background:
+    rgba(255,156,105,.08);
+
+}
+
+
+.grade-F{
+
+    color:var(--red);
+
+    background:
+    rgba(255,85,119,.08);
+
+}
+
+
+.pass{
+
+    color:var(--green);
+
+}
+
+
+.fail{
+
+    color:var(--red);
+
+}
+
+
+.delete{
+
+    border:0;
+
+    width:27px;
+    height:27px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    color:#ff7597;
+
+    background:
+    rgba(255,85,119,.07);
+
+}
+
+
+/* =====================================================
+   ANALYTICS
+===================================================== */
+
+.analytics{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:12px;
+
+    margin-top:14px;
+
+}
+
+
+.analytics-card{
+
+    padding:18px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.06);
+
+    border-radius:16px;
+
+    background:
+    rgba(255,255,255,.02);
+
+}
+
+
+.analytics-title{
+
+    color:#69778b;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+    margin-bottom:10px;
+
+}
+
+
+.analytics-value{
+
+    font-size:23px;
+
+    font-weight:800;
+
+}
+
+
+.analytics-value.topper{
+
+    color:var(--yellow);
+
+}
+
+
+.analytics-value.low{
+
+    color:var(--pink);
+
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+
+    text-align:center;
+
+    padding:75px 20px;
+
+    color:#536177;
+
+}
+
+
+.empty-icon{
+
+    width:65px;
+    height:65px;
+
+    display:grid;
+
+    place-items:center;
+
+    margin:
+    0 auto 14px;
+
+    border-radius:19px;
+
+    font-size:26px;
+
+    border:
+    1px solid
+    rgba(255,255,255,.06);
+
+    background:
+    rgba(255,255,255,.025);
+
+}
+
+
+.empty p{
+
+    font-size:10px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:
+    24px 0 0;
+
+    color:#435166;
+
+    font-size:8px;
+
+    letter-spacing:2px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+
+    .main-grid{
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+}
+
+
+@media(max-width:850px){
+
+    .dashboard{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .container{
+
+        width:92%;
+
+    }
+
+    .status{
+
+        display:none;
+
+    }
+
+    .dashboard{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+    .stat-card{
+
+        min-height:105px;
+
+        padding:14px;
+
+    }
+
+    .stat-value{
+
+        font-size:21px;
+
+    }
+
+    .form-panel,
+    .results-panel{
+
+        padding:17px;
+
+    }
+
+    .results-top{
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
+    }
+
+    .search{
+
+        width:100%;
+
+    }
+
+    .analytics{
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- BACKGROUND -->
+
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+
+<div class="container">
+
+
+<!-- ===================================================
+     NAVBAR
+=================================================== -->
+
+<nav class="navbar">
+
+<div class="brand">
+
+    <div class="logo">
+        Σ
+    </div>
+
+    <div>
+
+        <div class="brand-title">
+            NOVA ACADEMICS
+        </div>
+
+        <div class="brand-sub">
+            STUDENT RESULT INTELLIGENCE
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="status">
+
+    <span class="status-dot"></span>
+
+    ANALYTICS ENGINE ONLINE
+
+</div>
+
+</nav>
+
+
+<!-- ===================================================
+     HERO
+=================================================== -->
+
+<section class="hero">
+
+<div class="eyebrow">
+    EXPERIMENT 04 • RESULT ANALYSIS ENGINE
+</div>
+
+<h1>
+
+    Student Result
+    <span>Analytics.</span>
+
+</h1>
+
+<p>
+
+    Add student marks and instantly analyze
+    totals, percentages, grades, pass status,
+    class statistics, highest marks and lowest
+    marks using JavaScript arrays, objects,
+    loops, conditions and Math functions.
+
+</p>
+
+</section>
+
+
+<!-- ===================================================
+     DASHBOARD
+=================================================== -->
+
+<section class="dashboard">
+
+
+<div class="stat-card">
+
+    <div class="stat-icon">
+        👨‍🎓
+    </div>
+
+    <div class="stat-label">
+        TOTAL STUDENTS
+    </div>
+
+    <div
+    class="stat-value cyan"
+    id="totalStudents">
+        0
+    </div>
+
+</div>
+
+
+<div class="stat-card">
+
+    <div class="stat-icon">
+        🏆
+    </div>
+
+    <div class="stat-label">
+        CLASS AVERAGE
+    </div>
+
+    <div
+    class="stat-value purple"
+    id="classAverage">
+        0%
+    </div>
+
+</div>
+
+
+<div class="stat-card">
+
+    <div class="stat-icon">
+        ✓
+    </div>
+
+    <div class="stat-label">
+        PASS RATE
+    </div>
+
+    <div
+    class="stat-value green"
+    id="passRate">
+        0%
+    </div>
+
+</div>
+
+
+<div class="stat-card">
+
+    <div class="stat-icon">
+        ⭐
+    </div>
+
+    <div class="stat-label">
+        TOP SCORE
+    </div>
+
+    <div
+    class="stat-value yellow"
+    id="topScore">
+        0
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- ===================================================
+     MAIN
+=================================================== -->
+
+<main class="main-grid">
+
+
+<!-- ===================================================
+     STUDENT FORM
+=================================================== -->
+
+<section class="panel form-panel">
+
+
+<div class="panel-title">
+    Add Student Result
+</div>
+
+<div class="panel-sub">
+    ENTER STUDENT DETAILS & MARKS
+</div>
+
+
+<div class="field">
+
+<label>
+    STUDENT NAME
+</label>
+
+<input
+type="text"
+id="studentName"
+placeholder="Enter student name">
+
+</div>
+
+
+<div class="field">
+
+<label>
+    REGISTER NUMBER
+</label>
+
+<input
+type="text"
+id="registerNumber"
+placeholder="e.g. 24IT001">
+
+</div>
+
+
+<div class="subject-title">
+    SUBJECT MARKS
+</div>
+
+
+<div class="subject-grid">
+
+
+<div class="field subject">
+
+<label>
+    HTML
+</label>
+
+<input
+type="number"
+id="html"
+min="0"
+max="100"
+placeholder="0 - 100">
+
+</div>
+
+
+<div class="field subject">
+
+<label>
+    CSS
+</label>
+
+<input
+type="number"
+id="css"
+min="0"
+max="100"
+placeholder="0 - 100">
+
+</div>
+
+
+<div class="field subject">
+
+<label>
+    JAVASCRIPT
+</label>
+
+<input
+type="number"
+id="javascript"
+min="0"
+max="100"
+placeholder="0 - 100">
+
+</div>
+
+
+<div class="field subject">
+
+<label>
+    PYTHON
+</label>
+
+<input
+type="number"
+id="python"
+min="0"
+max="100"
+placeholder="0 - 100">
+
+</div>
+
+
+</div>
+
+
+<button
+class="add-btn"
+onclick="addStudent()">
+
+    + ADD RESULT TO ANALYTICS
+
+</button>
+
+
+</section>
+
+
+<!-- ===================================================
+     RESULTS
+=================================================== -->
+
+<section class="panel results-panel">
+
+
+<div class="results-top">
+
+<div>
+
+    <div class="panel-title">
+        Student Performance
+    </div>
+
+    <div class="panel-sub">
+        LIVE RESULT ANALYSIS TABLE
+    </div>
+
+</div>
+
+
+<input
+class="search"
+id="search"
+type="text"
+placeholder="Search student..."
+oninput="searchStudents()">
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+STUDENT
+</th>
+
+<th>
+HTML
+</th>
+
+<th>
+CSS
+</th>
+
+<th>
+JS
+</th>
+
+<th>
+PYTHON
+</th>
+
+<th>
+TOTAL
+</th>
+
+<th>
+PERCENT
+</th>
+
+<th>
+GRADE
+</th>
+
+<th>
+STATUS
+</th>
+
+<th>
+ACTION
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="resultBody">
+
+</tbody>
+
+
+</table>
+
+
+<div
+class="empty"
+id="emptyState">
+
+<div class="empty-icon">
+    📊
+</div>
+
+<p>
+No student results yet.<br>
+Add a student to generate analytics.
+</p>
+
+</div>
+
+
+</div>
+
+
+<!-- ANALYTICS -->
+
+<div class="analytics">
+
+
+<div class="analytics-card">
+
+<div class="analytics-title">
+    HIGHEST MARK
+</div>
+
+<div
+class="analytics-value topper"
+id="highestMark">
+
+    —
+
+</div>
+
+</div>
+
+
+<div class="analytics-card">
+
+<div class="analytics-title">
+    LOWEST MARK
+</div>
+
+<div
+class="analytics-value low"
+id="lowestMark">
+
+    —
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+<div class="footer">
+
+    HTML • CSS • JAVASCRIPT • ARRAYS • OBJECTS • LOOPS • Math.max() • Math.min()
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   STUDENT DATA ARRAY
+===================================================== */
+
+let students = [];
+
+
+/* =====================================================
+   CREATE BACKGROUND PARTICLES
+===================================================== */
+
+for(
+    let i = 0;
+    i < 45;
+    i++
+){
+
+    const particle =
+    document.createElement("div");
+
+    particle.className =
+    "particle";
+
+    particle.style.left =
+    Math.random() * 100 + "%";
+
+    particle.style.animationDuration =
+    (8 + Math.random() * 15) + "s";
+
+    particle.style.animationDelay =
+    (-Math.random() * 15) + "s";
+
+    document.body.appendChild(
+        particle
+    );
+
+}
+
+
+/* =====================================================
+   ADD STUDENT
+===================================================== */
+
+function addStudent(){
+
+    const name =
+    document
+    .getElementById("studentName")
+    .value
+    .trim();
+
+
+    const reg =
+    document
+    .getElementById("registerNumber")
+    .value
+    .trim();
+
+
+    const html =
+    Number(
+        document
+        .getElementById("html")
+        .value
+    );
+
+
+    const css =
+    Number(
+        document
+        .getElementById("css")
+        .value
+    );
+
+
+    const javascript =
+    Number(
+        document
+        .getElementById("javascript")
+        .value
+    );
+
+
+    const python =
+    Number(
+        document
+        .getElementById("python")
+        .value
+    );
+
+
+    /* VALIDATION */
+
+    if(!name || !reg){
+
+        alert(
+            "Please enter student name and register number."
+        );
+
+        return;
+
+    }
+
+
+    const marks = [
+        html,
+        css,
+        javascript,
+        python
+    ];
+
+
+    for(
+        let mark of marks
+    ){
+
+        if(
+            isNaN(mark) ||
+            mark < 0 ||
+            mark > 100
+        ){
+
+            alert(
+                "Marks must be between 0 and 100."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    /* DUPLICATE CHECK */
+
+    const duplicate =
+    students.some(
+        student =>
+        student.reg.toLowerCase() ===
+        reg.toLowerCase()
+    );
+
+
+    if(duplicate){
+
+        alert(
+            "Register number already exists."
+        );
+
+        return;
+
+    }
+
+
+    /* OBJECT */
+
+    const student = {
+
+        id:
+        Date.now(),
+
+        name:name,
+
+        reg:reg,
+
+        marks:{
+
+            html:html,
+
+            css:css,
+
+            javascript:javascript,
+
+            python:python
+
+        }
+
+    };
+
+
+    students.push(student);
+
+
+    clearForm();
+
+    renderStudents();
+
+    updateAnalytics();
+
+}
+
+
+/* =====================================================
+   CALCULATE TOTAL
+===================================================== */
+
+function calculateTotal(student){
+
+    return (
+
+        student.marks.html +
+
+        student.marks.css +
+
+        student.marks.javascript +
+
+        student.marks.python
+
+    );
+
+}
+
+
+/* =====================================================
+   CALCULATE PERCENTAGE
+===================================================== */
+
+function calculatePercentage(student){
+
+    const total =
+    calculateTotal(student);
+
+
+    return (
+        total / 400
+    ) * 100;
+
+}
+
+
+/* =====================================================
+   GET GRADE
+===================================================== */
+
+function getGrade(percentage){
+
+    if(percentage >= 90)
+        return "A+";
+
+    if(percentage >= 80)
+        return "A";
+
+    if(percentage >= 70)
+        return "B";
+
+    if(percentage >= 60)
+        return "C";
+
+    if(percentage >= 50)
+        return "D";
+
+    return "F";
+
+}
+
+
+/* =====================================================
+   PASS / FAIL
+===================================================== */
+
+function getStatus(student){
+
+    const marks =
+    Object.values(
+        student.marks
+    );
+
+
+    for(
+        let mark of marks
+    ){
+
+        if(mark < 40)
+            return "FAIL";
+
+    }
+
+
+    return "PASS";
+
+}
+
+
+/* =====================================================
+   GRADE CLASS
+===================================================== */
+
+function gradeClass(grade){
+
+    if(
+        grade === "A+" ||
+        grade === "A"
+    )
+        return "grade-A";
+
+    if(grade === "B")
+        return "grade-B";
+
+    if(grade === "C")
+        return "grade-C";
+
+    if(grade === "D")
+        return "grade-D";
+
+    return "grade-F";
+
+}
+
+
+/* =====================================================
+   RENDER TABLE
+===================================================== */
+
+function renderStudents(){
+
+    const body =
+    document.getElementById(
+        "resultBody"
+    );
+
+
+    const empty =
+    document.getElementById(
+        "emptyState"
+    );
+
+
+    body.innerHTML = "";
+
+
+    if(students.length === 0){
+
+        empty.style.display =
+        "block";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+    "none";
+
+
+    const search =
+    document
+    .getElementById("search")
+    .value
+    .toLowerCase();
+
+
+    /* LOOP THROUGH ARRAY */
+
+    for(
+        let student of students
+    ){
+
+        if(
+
+            !student.name
+            .toLowerCase()
+            .includes(search)
+
+            &&
+
+            !student.reg
+            .toLowerCase()
+            .includes(search)
+
+        ){
+
+            continue;
+
+        }
+
+
+        const total =
+        calculateTotal(student);
+
+
+        const percentage =
+        calculatePercentage(student);
+
+
+        const grade =
+        getGrade(percentage);
+
+
+        const status =
+        getStatus(student);
+
+
+        const row =
+        document.createElement("tr");
+
+
+        row.innerHTML = `
+
+        <td>
+
+            <div class="student-name">
+                ${student.name}
+            </div>
+
+            <div class="reg">
+                ${student.reg}
+            </div>
+
+        </td>
+
+
+        <td class="marks">
+            ${student.marks.html}
+        </td>
+
+
+        <td class="marks">
+            ${student.marks.css}
+        </td>
+
+
+        <td class="marks">
+            ${student.marks.javascript}
+        </td>
+
+
+        <td class="marks">
+            ${student.marks.python}
+        </td>
+
+
+        <td class="total">
+            ${total}/400
+        </td>
+
+
+        <td class="percentage">
+            ${percentage.toFixed(1)}%
+        </td>
+
+
+        <td>
+
+            <span
+            class="grade ${gradeClass(grade)}">
+
+                ${grade}
+
+            </span>
+
+        </td>
+
+
+        <td
+        class="${status === "PASS" ? "pass" : "fail"}">
+
+            ${status}
+
+        </td>
+
+
+        <td>
+
+            <button
+            class="delete"
+            onclick="deleteStudent(${student.id})">
+
+                ×
+
+            </button>
+
+        </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    }
+
+}
+
+
+/* =====================================================
+   UPDATE ANALYTICS
+===================================================== */
+
+function updateAnalytics(){
+
+    const totalStudents =
+    students.length;
+
+
+    document
+    .getElementById(
+        "totalStudents"
+    )
+    .textContent =
+    totalStudents;
+
+
+    if(totalStudents === 0){
+
+        document
+        .getElementById(
+            "classAverage"
+        )
+        .textContent =
+        "0%";
+
+
+        document
+        .getElementById(
+            "passRate"
+        )
+        .textContent =
+        "0%";
+
+
+        document
+        .getElementById(
+            "topScore"
+        )
+        .textContent =
+        "0";
+
+
+        document
+        .getElementById(
+            "highestMark"
+        )
+        .textContent =
+        "—";
+
+
+        document
+        .getElementById(
+            "lowestMark"
+        )
+        .textContent =
+        "—";
+
+
+        return;
+
+    }
+
+
+    /* ARRAY OF TOTALS */
+
+    const totals =
+    students.map(
+        student =>
+        calculateTotal(student)
+    );
+
+
+    /* ARRAY OF PERCENTAGES */
+
+    const percentages =
+    students.map(
+        student =>
+        calculatePercentage(student)
+    );
+
+
+    /* SUM */
+
+    let sum = 0;
+
+
+    for(
+        let percentage of percentages
+    ){
+
+        sum += percentage;
+
+    }
+
+
+    const average =
+    sum / percentages.length;
+
+
+    /* PASS COUNT */
+
+    let passCount = 0;
+
+
+    for(
+        let student of students
+    ){
+
+        if(
+            getStatus(student) ===
+            "PASS"
+        ){
+
+            passCount++;
+
+        }
+
+    }
+
+
+    const passRate =
+    (
+        passCount /
+        students.length
+    ) * 100;
+
+
+    /* MATH.MAX */
+
+    const highest =
+    Math.max(
+        ...totals
+    );
+
+
+    /* MATH.MIN */
+
+    const lowest =
+    Math.min(
+        ...totals
+    );
+
+
+    document
+    .getElementById(
+        "classAverage"
+    )
+    .textContent =
+    average.toFixed(1) + "%";
+
+
+    document
+    .getElementById(
+        "passRate"
+    )
+    .textContent =
+    passRate.toFixed(0) + "%";
+
+
+    document
+    .getElementById(
+        "topScore"
+    )
+    .textContent =
+    highest;
+
+
+    document
+    .getElementById(
+        "highestMark"
+    )
+    .textContent =
+    highest + " / 400";
+
+
+    document
+    .getElementById(
+        "lowestMark"
+    )
+    .textContent =
+    lowest + " / 400";
+
+}
+
+
+/* =====================================================
+   DELETE STUDENT
+===================================================== */
+
+function deleteStudent(id){
+
+    students =
+    students.filter(
+        student =>
+        student.id !== id
+    );
+
+
+    renderStudents();
+
+    updateAnalytics();
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchStudents(){
+
+    renderStudents();
+
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm(){
+
+    document
+    .getElementById(
+        "studentName"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "registerNumber"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "html"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "css"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "javascript"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "python"
+    )
+    .value = "";
+
+}
+
+
+/* =====================================================
+   SAMPLE DATA
+===================================================== */
+
+students = [
+
+{
+
+    id:1,
+
+    name:"Arjun Kumar",
+
+    reg:"24IT001",
+
+    marks:{
+
+        html:92,
+
+        css:88,
+
+        javascript:95,
+
+        python:90
+
+    }
+
+},
+
+{
+
+    id:2,
+
+    name:"Priya Sharma",
+
+    reg:"24IT002",
+
+    marks:{
+
+        html:84,
+
+        css:91,
+
+        javascript:82,
+
+        python:87
+
+    }
+
+},
+
+{
+
+    id:3,
+
+    name:"Rahul Dev",
+
+    reg:"24IT003",
+
+    marks:{
+
+        html:72,
+
+        css:68,
+
+        javascript:75,
+
+        python:70
+
+    }
+
+}
+
+];
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+renderStudents();
+
+updateAnalytics();
+
+</script>
+
+
+</body>
+</html>
