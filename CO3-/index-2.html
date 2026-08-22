@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Experiment 2 - Registration List</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 30px;
+    font-family: Arial;
+    color: white;
+
+    background:
+        radial-gradient(circle at 20% 20%,#7c3aed,transparent 30%),
+        radial-gradient(circle at 80% 80%,#0891b2,transparent 30%),
+        #020617;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,.2);
+}
+
+h1 {
+    text-align: center;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    margin: 30px 0;
+}
+
+input, select, button {
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+}
+
+input, select {
+    background: #1e293b;
+    color: white;
+}
+
+button {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(135deg,#7c3aed,#0891b2);
+}
+
+.student {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px;
+    margin-top: 12px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.08);
+}
+
+.remove {
+    background: #dc2626;
+}
+
+.empty {
+    text-align: center;
+    color: #94a3b8;
+    padding: 25px;
+}
+
+@media(max-width:700px) {
+    .form {
+        grid-template-columns: 1fr;
+    }
+
+    .student {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎓 Dynamic Student Registration</h1>
+
+<div class="form">
+
+<input id="studentName"
+       placeholder="Student Name">
+
+<input id="registerNumber"
+       placeholder="Register Number">
+
+<select id="department">
+
+<option value="">Select Department</option>
+
+<option>B.Tech IT</option>
+<option>B.Tech CSE</option>
+<option>B.Tech AI & DS</option>
+<option>B.E ECE</option>
+
+</select>
+
+<button id="addBtn">
+➕ Add Student
+</button>
+
+<button id="clearBtn">
+🗑 Clear All
+</button>
+
+</div>
+
+<div id="studentList">
+
+<p class="empty">
+No students registered.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const studentName =
+document.getElementById("studentName");
+
+const registerNumber =
+document.getElementById("registerNumber");
+
+const department =
+document.getElementById("department");
+
+const studentList =
+document.getElementById("studentList");
+
+
+document.getElementById("addBtn")
+.addEventListener("click", function() {
+
+    const name =
+    studentName.value.trim();
+
+    const reg =
+    registerNumber.value.trim();
+
+    const dept =
+    department.value;
+
+
+    if(name === "" || reg === "" || dept === "") {
+
+        alert("Please fill all fields.");
+
+        return;
+    }
+
+
+    const empty =
+    studentList.querySelector(".empty");
+
+    if(empty) {
+        empty.remove();
+    }
+
+
+    const student =
+    document.createElement("div");
+
+    student.classList.add("student");
+
+
+    const info =
+    document.createElement("div");
+
+    info.textContent =
+    "👤 " + name +
+    " | 🆔 " + reg +
+    " | 🏫 " + dept;
+
+
+    const removeButton =
+    document.createElement("button");
+
+    removeButton.textContent =
+    "Remove";
+
+    removeButton.classList.add("remove");
+
+
+    removeButton.addEventListener(
+        "click",
+        function() {
+
+            // parentElement
+            this.parentElement.remove();
+
+            checkEmpty();
+
+        }
+    );
+
+
+    // appendChild
+    student.appendChild(info);
+
+    student.appendChild(removeButton);
+
+    studentList.appendChild(student);
+
+
+    studentName.value = "";
+    registerNumber.value = "";
+    department.value = "";
+
+});
+
+
+document.getElementById("clearBtn")
+.addEventListener("click", function() {
+
+    studentList.innerHTML = "";
+
+    createEmptyMessage();
+
+});
+
+
+function checkEmpty() {
+
+    // children
+    if(studentList.children.length === 0) {
+
+        createEmptyMessage();
+
+    }
+
+}
+
+
+function createEmptyMessage() {
+
+    const message =
+    document.createElement("p");
+
+    message.classList.add("empty");
+
+    message.textContent =
+    "No students registered.";
+
+    studentList.appendChild(message);
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>3D Browser Compatibility</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:25px;
+
+font-family:Arial;
+color:white;
+
+background:
+radial-gradient(circle at 15% 20%,#7c3aed,transparent 30%),
+radial-gradient(circle at 85% 80%,#06b6d4,transparent 30%),
+#020617;
+}
+
+.container{
+width:100%;
+max-width:700px;
+padding:35px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.08);
+
+border:1px solid rgba(255,255,255,.2);
+
+box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+
+@supports(backdrop-filter:blur(10px)){
+
+.container{
+backdrop-filter:blur(20px);
+}
+
+}
+
+h1{
+text-align:center;
+color:#67e8f9;
+}
+
+.feature{
+display:flex;
+justify-content:space-between;
+
+padding:20px;
+margin:15px 0;
+
+border-radius:15px;
+
+background:rgba(255,255,255,.07);
+}
+
+.ok{
+color:#86efac;
+}
+
+.fail{
+color:#fca5a5;
+}
+
+button{
+width:100%;
+padding:15px;
+
+border:0;
+border-radius:12px;
+
+background:linear-gradient(135deg,#7c3aed,#06b6d4);
+
+color:white;
+font-weight:bold;
+
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌐 3D Compatibility Center</h1>
+
+<div class="feature">
+<span>localStorage</span>
+<strong id="storage"></strong>
+</div>
+
+<div class="feature">
+<span>querySelector()</span>
+<strong id="query"></strong>
+</div>
+
+<div class="feature">
+<span>CSS @supports</span>
+<strong id="css"></strong>
+</div>
+
+<button id="test">
+💾 Test Local Storage
+</button>
+
+</div>
+
+<script>
+
+const storage=
+document.getElementById("storage");
+
+const query=
+document.getElementById("query");
+
+const css=
+document.getElementById("css");
+
+
+const querySupported=
+typeof document.querySelector==="function";
+
+
+query.textContent=
+querySupported
+?"✓ Supported"
+:"✗ Unsupported";
+
+query.className=
+querySupported
+?"ok":"fail";
+
+
+let storageSupported=false;
+
+try{
+
+localStorage.setItem(
+"test",
+"working"
+);
+
+localStorage.removeItem("test");
+
+storageSupported=true;
+
+}catch(e){
+
+storageSupported=false;
+
+}
+
+
+storage.textContent=
+storageSupported
+?"✓ Supported"
+:"✗ Unsupported";
+
+storage.className=
+storageSupported
+?"ok":"fail";
+
+
+let cssSupported=false;
+
+if(
+typeof CSS!=="undefined" &&
+typeof CSS.supports==="function"
+){
+
+cssSupported=
+CSS.supports(
+"backdrop-filter",
+"blur(10px)"
+);
+
+}
+
+css.textContent=
+cssSupported
+?"✓ Supported"
+:"✓ Fallback Active";
+
+
+document.getElementById("test")
+.addEventListener("click",()=>{
+
+if(storageSupported){
+
+localStorage.setItem(
+"student",
+"Sidhesh"
+);
+
+alert("✅ localStorage is working!");
+
+}else{
+
+alert(
+"⚠️ localStorage unavailable. Fallback active."
+);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

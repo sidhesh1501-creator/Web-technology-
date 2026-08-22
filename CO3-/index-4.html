@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>3D Browser Dashboard</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:170vh;
+padding:30px;
+
+font-family:Arial;
+color:white;
+
+background:
+radial-gradient(circle at 10% 20%,#7c3aed,transparent 30%),
+radial-gradient(circle at 90% 80%,#06b6d4,transparent 30%),
+#020617;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+color:#67e8f9;
+margin-bottom:35px;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.card{
+padding:25px;
+min-height:150px;
+
+border-radius:22px;
+
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+
+transition:.4s;
+}
+
+.card:hover{
+transform:perspective(700px)
+rotateX(5deg)
+rotateY(-5deg)
+translateY(-8px);
+}
+
+.icon{
+font-size:35px;
+}
+
+.title{
+color:#94a3b8;
+margin-top:10px;
+}
+
+.value{
+font-size:20px;
+font-weight:bold;
+color:#67e8f9;
+margin-top:8px;
+word-break:break-word;
+}
+
+@media(max-width:650px){
+.dashboard{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌐 3D Browser Information Dashboard</h1>
+
+<div class="dashboard">
+
+<div class="card">
+<div class="icon">🌍</div>
+<div class="title">Current URL</div>
+<div class="value" id="url"></div>
+</div>
+
+<div class="card">
+<div class="icon">🗣️</div>
+<div class="title">Browser Language</div>
+<div class="value" id="language"></div>
+</div>
+
+<div class="card">
+<div class="icon">📡</div>
+<div class="title">Network Status</div>
+<div class="value" id="online"></div>
+</div>
+
+<div class="card">
+<div class="icon">🖥️</div>
+<div class="title">Screen Size</div>
+<div class="value" id="screen"></div>
+</div>
+
+<div class="card">
+<div class="icon">📱</div>
+<div class="title">Viewport</div>
+<div class="value" id="viewport"></div>
+</div>
+
+<div class="card">
+<div class="icon">↕️</div>
+<div class="title">Scroll Position</div>
+<div class="value" id="scroll"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function update(){
+
+document.getElementById("url")
+.textContent=window.location.href;
+
+document.getElementById("language")
+.textContent=navigator.language;
+
+document.getElementById("online")
+.textContent=
+navigator.onLine
+?"🟢 Online"
+:"🔴 Offline";
+
+document.getElementById("screen")
+.textContent=
+screen.width+" × "+screen.height;
+
+document.getElementById("viewport")
+.textContent=
+window.innerWidth+" × "+window.innerHeight;
+
+document.getElementById("scroll")
+.textContent=
+"X: "+window.scrollX+
+" | Y: "+window.scrollY;
+
+}
+
+update();
+
+window.addEventListener("resize",update);
+
+window.addEventListener("scroll",update);
+
+window.addEventListener("online",update);
+
+window.addEventListener("offline",update);
+
+</script>
+
+</body>
+</html>

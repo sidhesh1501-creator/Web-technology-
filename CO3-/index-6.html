@@ -1,0 +1,161 @@
+package com.student;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/WelcomeServlet")
+public class WelcomeServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws ServletException, IOException {
+
+        response.setContentType(
+            "text/html;charset=UTF-8"
+        );
+
+        PrintWriter out =
+            response.getWriter();
+
+        String studentName =
+            "Sidhesh";
+
+        String course =
+            "B.Tech Information Technology";
+
+        LocalDateTime now =
+            LocalDateTime.now();
+
+        String dateTime =
+            now.format(
+                DateTimeFormatter.ofPattern(
+                    "dd-MM-yyyy HH:mm:ss"
+                )
+            );
+
+        out.println("""
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+
+        <title>3D Servlet</title>
+
+        <style>
+
+        body{
+            margin:0;
+            min-height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            font-family:Arial;
+            color:white;
+
+            background:
+            radial-gradient(circle at 15% 20%,#7c3aed,transparent 30%),
+            radial-gradient(circle at 85% 80%,#06b6d4,transparent 30%),
+            #020617;
+        }
+
+        .card{
+
+            width:600px;
+            padding:40px;
+
+            border-radius:30px;
+
+            background:rgba(255,255,255,.1);
+
+            backdrop-filter:blur(20px);
+
+            border:1px solid rgba(255,255,255,.2);
+
+            box-shadow:
+            0 30px 80px rgba(0,0,0,.5);
+
+            text-align:center;
+
+            transform:
+            perspective(800px)
+            rotateX(3deg);
+
+            animation:float 4s infinite ease-in-out;
+        }
+
+        @keyframes float{
+
+            0%,100%{
+                transform:
+                perspective(800px)
+                rotateX(3deg)
+                translateY(0);
+            }
+
+            50%{
+                transform:
+                perspective(800px)
+                rotateX(3deg)
+                translateY(-10px);
+            }
+
+        }
+
+        h1{
+            color:#67e8f9;
+        }
+
+        .data{
+
+            padding:18px;
+            margin:15px 0;
+
+            border-radius:15px;
+
+            background:
+            rgba(255,255,255,.07);
+        }
+
+        </style>
+
+        </head>
+
+        <body>
+
+        <div class="card">
+
+        <h1>🎓 Welcome Student</h1>
+
+        <div class="data">
+        Name: """ + studentName + """
+        </div>
+
+        <div class="data">
+        Course: """ + course + """
+        </div>
+
+        <div class="data">
+        Current Date & Time:<br>
+        """ + dateTime + """
+        </div>
+
+        </div>
+
+        </body>
+
+        </html>
+        """);
+    }
+}
