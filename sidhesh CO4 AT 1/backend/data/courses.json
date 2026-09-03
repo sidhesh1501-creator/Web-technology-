@@ -1,0 +1,9 @@
+{
+  "courses": [
+    { "id": "C101", "code": "WEB301", "name": "Web Technology", "faculty": "Dr. Arun", "students": 58, "credits": 4, "type": "Theory" },
+    { "id": "C102", "code": "AI302", "name": "Artificial Intelligence", "faculty": "Dr. Meena", "students": 72, "credits": 4, "type": "Theory" },
+    { "id": "C103", "code": "WEB303", "name": "Web Technology Laboratory", "faculty": "Dr. Ravi", "students": 36, "credits": 2, "type": "Practical" },
+    { "id": "C104", "code": "ML304", "name": "Machine Learning", "faculty": "Dr. Priya", "students": 64, "credits": 4, "type": "Theory" },
+    { "id": "C105", "code": "DB305", "name": "Database Systems", "faculty": "Dr. Kumar", "students": 42, "credits": 3, "type": "Theory" }
+  ]
+}

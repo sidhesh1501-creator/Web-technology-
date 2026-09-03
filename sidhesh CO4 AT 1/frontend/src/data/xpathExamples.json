@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "title": "All course records",
+    "expression": "/courses/course",
+    "description": "Selects all <course> elements under the root <courses> element",
+    "category": "Basic Selection"
+  },
+  {
+    "id": 2,
+    "title": "Names of all courses",
+    "expression": "/courses/course/name",
+    "description": "Selects the <name> child element from each course",
+    "category": "Child Selection"
+  },
+  {
+    "id": 3,
+    "title": "Courses with more than 50 students",
+    "expression": "/courses/course[students > 50]",
+    "description": "Uses a predicate to filter courses where student count exceeds 50",
+    "category": "Predicate Filter"
+  },
+  {
+    "id": 4,
+    "title": "Courses with exactly 4 credits",
+    "expression": "/courses/course[credits = 4]",
+    "description": "Filters courses carrying exactly 4 credit hours",
+    "category": "Predicate Filter"
+  },
+  {
+    "id": 5,
+    "title": "Theory courses only",
+    "expression": "/courses/course[type='Theory']",
+    "description": "Filters courses by the Theory type value",
+    "category": "Predicate Filter"
+  },
+  {
+    "id": 6,
+    "title": "Theory courses with more than 50 students (names)",
+    "expression": "/courses/course[type='Theory' and students > 50]/name",
+    "description": "Combines two predicates with AND to narrow the selection further",
+    "category": "Compound Predicate"
+  },
+  {
+    "id": 7,
+    "title": "Faculty for courses with at least 4 credits",
+    "expression": "/courses/course[credits >= 4]/faculty",
+    "description": "Returns faculty names where course credits are 4 or more",
+    "category": "Compound Predicate"
+  },
+  {
+    "id": 8,
+    "title": "Course with ID C104",
+    "expression": "/courses/course[@id='C104']",
+    "description": "Selects a course by its unique attribute using @attribute-name syntax",
+    "category": "Attribute Selection"
+  },
+  {
+    "id": 9,
+    "title": "First course",
+    "expression": "/courses/course[1]",
+    "description": "Selects the first course using positional predicate [1]",
+    "category": "Positional"
+  },
+  {
+    "id": 10,
+    "title": "Last course",
+    "expression": "/courses/course[last()]",
+    "description": "Selects the last course using the last() function",
+    "category": "Positional"
+  }
+]

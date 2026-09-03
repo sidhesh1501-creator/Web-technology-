@@ -1,0 +1,282 @@
+[
+  {
+    "id": "p1q1",
+    "part": 1,
+    "partName": "XML Structure",
+    "marks": 1,
+    "type": "mcq",
+    "question": "In the given XML, what is the root element?",
+    "options": ["<course>", "<courses>", "<code>", "<type>"],
+    "answer": "<courses>",
+    "explanation": "The root element is the outermost element that contains all other elements. Here it is <courses>."
+  },
+  {
+    "id": "p1q2",
+    "part": 1,
+    "partName": "XML Structure",
+    "marks": 1,
+    "type": "mcq",
+    "question": "Which attribute uniquely identifies each course?",
+    "options": ["code", "name", "id", "type"],
+    "answer": "id",
+    "explanation": "The 'id' attribute (e.g., C101, C102) uniquely identifies each course element."
+  },
+  {
+    "id": "p1q3",
+    "part": 1,
+    "partName": "XML Structure",
+    "marks": 1,
+    "type": "mcq",
+    "question": "How many <course> elements are present in the XML?",
+    "options": ["3", "4", "5", "6"],
+    "answer": "5",
+    "explanation": "There are 5 course elements: C101, C102, C103, C104, and C105."
+  },
+  {
+    "id": "p1q4",
+    "part": 1,
+    "partName": "XML Structure",
+    "marks": 1,
+    "type": "mcq",
+    "question": "Which element contains numeric data in the XML?",
+    "options": ["<name>", "<faculty>", "<students>", "<type>"],
+    "answer": "<students>",
+    "explanation": "<students> and <credits> contain numeric data representing counts and credit hours."
+  },
+  {
+    "id": "p1q5",
+    "part": 1,
+    "partName": "XML Structure",
+    "marks": 1,
+    "type": "mcq",
+    "question": "The XML is said to be 'well-formed' when:",
+    "options": [
+      "All tags are lowercase",
+      "Every opening tag has a closing tag and elements are properly nested",
+      "It contains at least 5 elements",
+      "It has a DTD declaration"
+    ],
+    "answer": "Every opening tag has a closing tag and elements are properly nested",
+    "explanation": "A well-formed XML document has matching opening/closing tags, proper nesting, and a single root element."
+  },
+  {
+    "id": "p2q1",
+    "part": 2,
+    "partName": "XPath",
+    "marks": 2,
+    "type": "mcq",
+    "question": "Which XPath expression selects all course elements?",
+    "options": [
+      "/course",
+      "/courses/course",
+      "//courses",
+      "/courses[@id]"
+    ],
+    "answer": "/courses/course",
+    "explanation": "/courses/course selects all <course> child elements of the root <courses> element."
+  },
+  {
+    "id": "p2q2",
+    "part": 2,
+    "partName": "XPath",
+    "marks": 2,
+    "type": "mcq",
+    "question": "What does /courses/course[students > 50] return?",
+    "options": [
+      "All courses",
+      "Courses where students element value is greater than 50",
+      "Course with exactly 50 students",
+      "The students element value"
+    ],
+    "answer": "Courses where students element value is greater than 50",
+    "explanation": "The predicate [students > 50] filters only those course elements whose <students> child has a value greater than 50."
+  },
+  {
+    "id": "p2q3",
+    "part": 2,
+    "partName": "XPath",
+    "marks": 2,
+    "type": "mcq",
+    "question": "To select a course by its id attribute, which expression is correct?",
+    "options": [
+      "/courses/course[id='C104']",
+      "/courses/course[@id='C104']",
+      "/courses/course/id='C104'",
+      "//course#C104"
+    ],
+    "answer": "/courses/course[@id='C104']",
+    "explanation": "In XPath, attributes are accessed using the @ symbol. [@id='C104'] is the correct predicate syntax."
+  },
+  {
+    "id": "p2q4",
+    "part": 2,
+    "partName": "XPath",
+    "marks": 2,
+    "type": "mcq",
+    "question": "Which XPath selects names of Theory courses with more than 50 students?",
+    "options": [
+      "/courses/course[type='Theory']/name",
+      "/courses/course[students > 50]/name",
+      "/courses/course[type='Theory' and students > 50]/name",
+      "/courses/course[type='Theory' or students > 50]/name"
+    ],
+    "answer": "/courses/course[type='Theory' and students > 50]/name",
+    "explanation": "The 'and' operator combines two conditions: type must be Theory AND students must be > 50."
+  },
+  {
+    "id": "p2q5",
+    "part": 2,
+    "partName": "XPath",
+    "marks": 2,
+    "type": "mcq",
+    "question": "What does /courses/course[last()] return?",
+    "options": [
+      "The first course",
+      "All courses",
+      "The last course in document order",
+      "Error — last() is not valid"
+    ],
+    "answer": "The last course in document order",
+    "explanation": "The last() function in XPath returns the position of the last node in the context, selecting the final <course> element."
+  },
+  {
+    "id": "p3q1",
+    "part": 3,
+    "partName": "XSLT",
+    "marks": 2,
+    "type": "mcq",
+    "question": "What does XSLT stand for?",
+    "options": [
+      "eXtended Style Language Transformations",
+      "eXtensible Stylesheet Language Transformations",
+      "eXternal Schema Language Transformations",
+      "eXact Style Layout Transformations"
+    ],
+    "answer": "eXtensible Stylesheet Language Transformations",
+    "explanation": "XSLT stands for eXtensible Stylesheet Language Transformations — used to transform XML into other formats like HTML."
+  },
+  {
+    "id": "p3q2",
+    "part": 3,
+    "partName": "XSLT",
+    "marks": 2,
+    "type": "mcq",
+    "question": "In XSLT, which element is used to apply templates to matching nodes?",
+    "options": [
+      "<xsl:for-each>",
+      "<xsl:apply-templates>",
+      "<xsl:template>",
+      "<xsl:value-of>"
+    ],
+    "answer": "<xsl:apply-templates>",
+    "explanation": "<xsl:apply-templates> instructs the XSLT processor to find and apply a matching <xsl:template> for each selected node."
+  },
+  {
+    "id": "p3q3",
+    "part": 3,
+    "partName": "XSLT",
+    "marks": 2,
+    "type": "mcq",
+    "question": "How do you filter courses in XSLT to show only those with students > 40?",
+    "options": [
+      "<xsl:for-each select=\"/courses/course\" filter=\"students>40\">",
+      "<xsl:for-each select=\"/courses/course[students > 40]\">",
+      "<xsl:if test=\"students > 40\"><xsl:for-each>",
+      "<xsl:filter select=\"students > 40\">"
+    ],
+    "answer": "<xsl:for-each select=\"/courses/course[students > 40]\">",
+    "explanation": "XPath predicates can be used directly inside the select attribute of <xsl:for-each> to filter nodes."
+  },
+  {
+    "id": "p3q4",
+    "part": 3,
+    "partName": "XSLT",
+    "marks": 2,
+    "type": "mcq",
+    "question": "Which element outputs the value of an XML element in XSLT?",
+    "options": [
+      "<xsl:copy>",
+      "<xsl:element>",
+      "<xsl:value-of>",
+      "<xsl:text>"
+    ],
+    "answer": "<xsl:value-of>",
+    "explanation": "<xsl:value-of select=\"elementName\"> extracts and outputs the string value of the selected XML element."
+  },
+  {
+    "id": "p3q5",
+    "part": 3,
+    "partName": "XSLT",
+    "marks": 2,
+    "type": "mcq",
+    "question": "To sort courses by student count descending in XSLT, you use:",
+    "options": [
+      "<xsl:sort select=\"students\" order=\"desc\">",
+      "<xsl:sort select=\"students\" order=\"descending\">",
+      "<xsl:order by=\"students\" direction=\"descending\">",
+      "<xsl:sort select=\"students\" reverse=\"true\">"
+    ],
+    "answer": "<xsl:sort select=\"students\" order=\"descending\">",
+    "explanation": "<xsl:sort> uses order=\"descending\" (not 'desc') to sort nodes in descending order by the selected value."
+  },
+  {
+    "id": "p4q1",
+    "part": 4,
+    "partName": "Data Interpretation",
+    "marks": 1,
+    "type": "mcq",
+    "question": "Which course has the highest student enrollment?",
+    "options": ["Web Technology", "Artificial Intelligence", "Machine Learning", "Database Systems"],
+    "answer": "Artificial Intelligence",
+    "explanation": "Artificial Intelligence (AI302) has 72 students, the highest in the dataset."
+  },
+  {
+    "id": "p4q2",
+    "part": 4,
+    "partName": "Data Interpretation",
+    "marks": 1,
+    "type": "mcq",
+    "question": "How many courses have exactly 4 credits?",
+    "options": ["2", "3", "4", "5"],
+    "answer": "3",
+    "explanation": "Web Technology, Artificial Intelligence, and Machine Learning each carry 4 credits."
+  },
+  {
+    "id": "p4q3",
+    "part": 4,
+    "partName": "Data Interpretation",
+    "marks": 1,
+    "type": "mcq",
+    "question": "Which course type might require additional teaching support based on enrollment?",
+    "options": [
+      "Courses with fewer than 40 students",
+      "Courses with more than 60 students",
+      "All Theory courses",
+      "Practical courses only"
+    ],
+    "answer": "Courses with more than 60 students",
+    "explanation": "AI (72) and ML (64) have over 60 students and may need extra faculty or resources."
+  },
+  {
+    "id": "p4q4",
+    "part": 4,
+    "partName": "Data Interpretation",
+    "marks": 1,
+    "type": "mcq",
+    "question": "What is the total number of students across all courses?",
+    "options": ["262", "272", "282", "292"],
+    "answer": "272",
+    "explanation": "58 + 72 + 36 + 64 + 42 = 272 total students across all 5 courses."
+  },
+  {
+    "id": "p4q5",
+    "part": 4,
+    "partName": "Data Interpretation",
+    "marks": 1,
+    "type": "mcq",
+    "question": "What percentage of courses are Theory courses?",
+    "options": ["60%", "70%", "80%", "100%"],
+    "answer": "80%",
+    "explanation": "4 out of 5 courses are Theory, which is 4/5 × 100 = 80%."
+  }
+]
