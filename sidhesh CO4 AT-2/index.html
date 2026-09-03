@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Service Request Management System | Enterprise Portal</title>
+    <meta name="description" content="Submit technical service requests for IT support, network, hardware, software, and account troubleshooting.">
+    <link rel="stylesheet" href="src/main/webapp/css/style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-wrapper">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>Enterprise IT Support</h1>
+                    <span>Service Portal</span>
+                </div>
+            </a>
+            <div class="nav-badges">
+                <div class="badge-live-pulse">
+                    <span class="status-dot"></span>
+                    Persistent Repository Active
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-wrapper">
+
+        <!-- Radiant Aurora Hero Section -->
+        <section class="hero-section">
+            <div class="hero-bg-orb-1"></div>
+            <div class="hero-bg-orb-2"></div>
+            <div class="hero-content">
+                <div class="hero-badge-tag">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Official Internal IT Service Desk Portal
+                </div>
+                <h2 class="hero-title">IT Service Request Management</h2>
+                <p class="hero-subtitle">
+                    Report technical issues quickly and help our IT team resolve them efficiently.
+                    All service tickets are automatically validated, cataloged, saved, and stored with persistent tracking.
+                </p>
+                <div class="hero-actions">
+                    <a href="#requestFormCard" id="btnScrollToForm" class="hero-btn-launch">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Create Service Request
+                    </a>
+                </div>
+
+                <!-- Hero Metrics Stats Grid -->
+                <div class="hero-stats-grid">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-icon pink">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
+                        </div>
+                        <div>
+                            <div class="hero-stat-value">&lt; 15 Mins</div>
+                            <div class="hero-stat-label">Avg. Triage Response</div>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-icon green">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <div>
+                            <div class="hero-stat-value">99.8% SLA</div>
+                            <div class="hero-stat-label">Resolution Rate</div>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-icon cyan">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </div>
+                        <div>
+                            <div class="hero-stat-value" id="statSavedCount">Saved &amp; Stored</div>
+                            <div class="hero-stat-label">Persistent Storage</div>
+                        </div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-icon amber">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <div>
+                            <div class="hero-stat-value">8 Engineers</div>
+                            <div class="hero-stat-label">On-Duty Support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 Creative Service Feature Preview Cards -->
+        <section class="service-cards-preview">
+            <div class="service-preview-card card-net chip-template" data-template="vpn">
+                <div class="service-card-top">
+                    <div class="service-card-icon net">🌐</div>
+                    <div class="service-card-title">Network &amp; VPN</div>
+                </div>
+                <div class="service-card-desc">Wi-Fi connectivity, DNS errors, remote subnet VPN access.</div>
+            </div>
+
+            <div class="service-preview-card card-soft chip-template" data-template="software">
+                <div class="service-card-top">
+                    <div class="service-card-icon soft">💻</div>
+                    <div class="service-card-title">Software &amp; IDEs</div>
+                </div>
+                <div class="service-card-desc">Developer toolchains, licenses, Docker, SDK setup.</div>
+            </div>
+
+            <div class="service-preview-card card-hard chip-template" data-template="hardware">
+                <div class="service-card-top">
+                    <div class="service-card-icon hard">🖥️</div>
+                    <div class="service-card-title">Hardware &amp; Displays</div>
+                </div>
+                <div class="service-card-desc">Dual monitors, docking stations, laptops, peripherals.</div>
+            </div>
+
+            <div class="service-preview-card card-sec chip-template" data-template="account">
+                <div class="service-card-top">
+                    <div class="service-card-icon sec">🔐</div>
+                    <div class="service-card-title">Accounts &amp; SSO</div>
+                </div>
+                <div class="service-card-desc">Single Sign-On, password reset, 2FA credential sync.</div>
+            </div>
+        </section>
+
+        <!-- Interactive Quick-Fill & Demo Control Bar -->
+        <section class="demo-control-bar">
+            <div class="demo-bar-left">
+                <div class="demo-badge-icon">⚡</div>
+                <div>
+                    <div class="demo-bar-title">Interactive Demo Control Toolbar</div>
+                    <div class="demo-bar-subtitle">Click to populate realistic sample data into the form with 1 click</div>
+                </div>
+            </div>
+            <div class="demo-chips-group">
+                <button type="button" class="chip-btn autofill-main" id="btnAutoFillDemo">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
+                    ⚡ Auto-Fill Sample Data
+                </button>
+                <button type="button" class="chip-btn chip-template" data-template="vpn">🌐 VPN Issue</button>
+                <button type="button" class="chip-btn chip-template" data-template="software">💻 IDE Software</button>
+                <button type="button" class="chip-btn chip-template" data-template="hardware">🖥️ 4K Monitor</button>
+                <button type="button" class="chip-btn chip-template" data-template="account">🔑 SSO Auth</button>
+            </div>
+        </section>
+
+        <!-- Service Request Form Card -->
+        <section class="card" id="requestFormCard">
+            <div class="card-header">
+                <h3 class="card-title">Create Service Request</h3>
+                <p class="card-subtitle">Tell us what you need help with. All fields marked with <span class="required-asterisk">*</span> are required.</p>
+            </div>
+
+            <div class="card-body">
+
+                <!-- Validation Alert -->
+                <div id="validationAlert" class="alert alert-danger" style="display: none;" role="alert">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <div>
+                        <strong>Validation Error:</strong> <span id="validationAlertMsg">Please complete all required fields correctly before submitting.</span>
+                    </div>
+                </div>
+
+                <form id="serviceRequestForm">
+
+                    <!-- Section 1: Employee Information -->
+                    <div class="form-section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        1. Employee Information
+                    </div>
+
+                    <div class="form-grid">
+                        <!-- Employee ID -->
+                        <div class="form-group">
+                            <label for="employeeId" class="form-label">
+                                Employee ID <span class="required-asterisk">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="employeeId" 
+                                name="employeeId" 
+                                class="form-control" 
+                                placeholder="e.g. 192521193 or EMP-1042"
+                                required
+                            >
+                            <span class="input-hint">Your unique corporate employee identifier</span>
+                        </div>
+
+                        <!-- Employee Name -->
+                        <div class="form-group">
+                            <label for="employeeName" class="form-label">
+                                Employee Name <span class="required-asterisk">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="employeeName" 
+                                name="employeeName" 
+                                class="form-control" 
+                                placeholder="e.g. John Doe"
+                                required
+                            >
+                            <span class="input-hint">Your full registered name</span>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="form-group full-width">
+                            <label for="department" class="form-label">
+                                Department <span class="required-asterisk">*</span>
+                            </label>
+                            <select id="department" name="department" class="form-control" required>
+                                <option value="" disabled selected>-- Select Your Department --</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Software Engineering">Software Engineering</option>
+                                <option value="Quality Assurance & Testing">Quality Assurance & Testing</option>
+                                <option value="Human Resources">Human Resources</option>
+                                <option value="Finance & Accounts">Finance & Accounts</option>
+                                <option value="Operations & Logistics">Operations & Logistics</option>
+                                <option value="Marketing & Sales">Marketing & Sales</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Issue Details -->
+                    <div class="form-section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                        2. Issue Details &amp; Categorization
+                    </div>
+
+                    <!-- Problem Category -->
+                    <div class="form-group" style="margin-bottom: 1.85rem;">
+                        <label class="form-label">
+                            Problem Category <span class="required-asterisk">*</span>
+                        </label>
+                        <div class="category-tiles">
+                            <label class="category-tile-label">
+                                <input type="radio" name="problemCategory" value="Network" required>
+                                <div class="category-tile-box">
+                                    <div class="category-icon-circle">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                    </div>
+                                    <span>Network</span>
+                                </div>
+                            </label>
+
+                            <label class="category-tile-label">
+                                <input type="radio" name="problemCategory" value="Software" checked>
+                                <div class="category-tile-box">
+                                    <div class="category-icon-circle">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                    </div>
+                                    <span>Software</span>
+                                </div>
+                            </label>
+
+                            <label class="category-tile-label">
+                                <input type="radio" name="problemCategory" value="Hardware">
+                                <div class="category-tile-box">
+                                    <div class="category-icon-circle">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                                    </div>
+                                    <span>Hardware</span>
+                                </div>
+                            </label>
+
+                            <label class="category-tile-label">
+                                <input type="radio" name="problemCategory" value="Account">
+                                <div class="category-tile-box">
+                                    <div class="category-icon-circle">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle></svg>
+                                    </div>
+                                    <span>Account</span>
+                                </div>
+                            </label>
+
+                            <label class="category-tile-label">
+                                <input type="radio" name="problemCategory" value="Other">
+                                <div class="category-tile-box">
+                                    <div class="category-icon-circle">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                    </div>
+                                    <span>Other</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Problem Description -->
+                    <div class="form-group" style="margin-bottom: 1.85rem;">
+                        <label for="problemDescription" class="form-label">
+                            Problem Description <span class="required-asterisk">*</span>
+                        </label>
+                        <textarea 
+                            id="problemDescription" 
+                            name="problemDescription" 
+                            class="form-control" 
+                            placeholder="Describe the issue in detail (error messages, application names, steps to reproduce)..."
+                            required
+                        ></textarea>
+                        <div class="input-hint">
+                            <span>Be as descriptive as possible to accelerate triage</span>
+                            <span id="descCharCount">0 characters (min. 10)</span>
+                        </div>
+                    </div>
+
+                    <!-- Priority Level -->
+                    <div class="form-group" style="margin-bottom: 1.85rem;">
+                        <label class="form-label">
+                            Priority Level <span class="required-asterisk">*</span>
+                        </label>
+                        <div class="priority-options">
+                            <label class="priority-label">
+                                <input type="radio" name="priority" value="Low" required>
+                                <div class="priority-card low">
+                                    <span class="priority-dot-ring"></span>
+                                    <div>
+                                        <span class="priority-name">Low</span>
+                                        <div class="priority-desc">🟢 Standard Queue / Minor</div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="priority-label">
+                                <input type="radio" name="priority" value="Medium" checked>
+                                <div class="priority-card medium">
+                                    <span class="priority-dot-ring"></span>
+                                    <div>
+                                        <span class="priority-name">Medium</span>
+                                        <div class="priority-desc">🟡 Expedited / Workflow Affected</div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="priority-label">
+                                <input type="radio" name="priority" value="High">
+                                <div class="priority-card high">
+                                    <span class="priority-dot-ring"></span>
+                                    <div>
+                                        <span class="priority-name">High</span>
+                                        <div class="priority-desc">🔴 Critical Blocker / Urgent</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Form Action Buttons -->
+                    <div class="form-actions">
+                        <button type="reset" id="btnResetForm" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                            Reset Form
+                        </button>
+                        <button type="submit" id="btnSubmitRequest" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                            Submit &amp; Save Service Request
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- View 2: Acknowledgement Card (Rendered on Form Submit) -->
+        <section class="ack-card" id="ackCard" style="display: none; margin-top: 2rem;">
+            
+            <div class="ack-banner">
+                <div class="success-icon-wrap">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h2>✓ Request Successfully Saved &amp; Stored</h2>
+                <p>Your technical service request has been logged into the repository and stored in persistent memory.</p>
+                
+                <div class="ticket-number-pill">
+                    <span>Ticket: <strong id="res-ticketNum">SR-1004</strong></span>
+                    <button type="button" id="btnCopyTicket" class="copy-btn" data-ticket="SR-1004" title="Copy Ticket Number">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span class="copy-label">Copy</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="ack-body">
+                <div class="summary-heading">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-violet)" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Service Request Summary Details
+                </div>
+
+                <table class="summary-table">
+                    <tbody>
+                        <tr>
+                            <th>Service Request No.</th>
+                            <td><strong id="res-ticketNum2" style="font-family: var(--font-mono); color: var(--color-violet); font-size: 1.15rem;">SR-1004</strong></td>
+                        </tr>
+                        <tr>
+                            <th>Employee ID</th>
+                            <td id="res-empId">192521193</td>
+                        </tr>
+                        <tr>
+                            <th>Employee Name</th>
+                            <td id="res-empName">John Doe</td>
+                        </tr>
+                        <tr>
+                            <th>Department</th>
+                            <td id="res-dept">Computer Science</td>
+                        </tr>
+                        <tr>
+                            <th>Problem Category</th>
+                            <td>
+                                <span class="badge badge-category" id="res-category">
+                                    Software
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Priority</th>
+                            <td>
+                                <span class="badge badge-high" id="res-priority">
+                                    ● High Priority
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Storage Status</th>
+                            <td>
+                                <span class="badge badge-status">
+                                    ✓ Saved &amp; Stored in Persistent Storage
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Submission Time</th>
+                            <td style="color: var(--color-slate-600); font-size: 0.9rem;" id="res-timestamp">
+                                2026-09-03 11:40:00
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Problem Description</th>
+                            <td>
+                                <div class="desc-box" id="res-desc">Unable to install required development software.</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-actions" style="margin-top: 1rem;">
+                    <button type="button" id="btnPrintTicket" class="btn btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                        Print Summary
+                    </button>
+                    <button type="button" id="btnSubmitAnother" class="btn btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Submit Another Request
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Persistent Storage History Table -->
+        <section class="live-queue-card">
+            <div class="live-queue-header">
+                <div class="live-queue-title">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-violet)" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Saved &amp; Stored Requests History Repository
+                </div>
+                <div style="display: flex; gap: 0.75rem; align-items: center;">
+                    <button type="button" id="btnExportJSON" class="chip-btn" style="background: var(--color-slate-100);">
+                        📥 Export JSON
+                    </button>
+                    <span class="badge badge-status" id="storedCountBadge">3 Requests Stored</span>
+                </div>
+            </div>
+
+            <table class="live-table">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Employee</th>
+                        <th>Department</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="queueTableBody">
+                    <!-- Populated dynamically from storage -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- MVC Architecture Explanation Section -->
+        <section class="mvc-section">
+            <div class="mvc-header">
+                <h3>How the MVC Architecture Works with Persistent Storage</h3>
+                <p>A transparent breakdown of how Model-View-Controller handles and saves every service request</p>
+            </div>
+
+            <!-- Workflow Diagram -->
+            <div class="mvc-diagram">
+                <div class="mvc-step-card">
+                    <div class="mvc-step-num">1</div>
+                    <div class="mvc-step-title">Employee</div>
+                    <div class="mvc-step-desc">Fills out form in browser</div>
+                </div>
+
+                <div class="mvc-arrow">→</div>
+
+                <div class="mvc-step-card">
+                    <div class="mvc-step-num">2</div>
+                    <div class="mvc-step-title">View (JSP)</div>
+                    <div class="mvc-step-desc"><code>serviceRequest.jsp</code> submits POST</div>
+                </div>
+
+                <div class="mvc-arrow">→</div>
+
+                <div class="mvc-step-card">
+                    <div class="mvc-step-num">3</div>
+                    <div class="mvc-step-title">Controller</div>
+                    <div class="mvc-step-desc"><code>ServiceRequestServlet</code> validates input</div>
+                </div>
+
+                <div class="mvc-arrow">→</div>
+
+                <div class="mvc-step-card">
+                    <div class="mvc-step-num">4</div>
+                    <div class="mvc-step-title">Model &amp; Storage</div>
+                    <div class="mvc-step-desc">Creates <code>ServiceRequest</code> &amp; saves to repository</div>
+                </div>
+
+                <div class="mvc-arrow">→</div>
+
+                <div class="mvc-step-card">
+                    <div class="mvc-step-num">5</div>
+                    <div class="mvc-step-title">View (JSP)</div>
+                    <div class="mvc-step-desc"><code>acknowledgement.jsp</code> displays ticket &amp; log</div>
+                </div>
+            </div>
+
+            <!-- MVC Role Detail Cards -->
+            <div class="mvc-roles-grid">
+                <div class="mvc-role-card">
+                    <span class="mvc-role-tag model">Model Layer</span>
+                    <h4>ServiceRequest.java &amp; Repository</h4>
+                    <p>
+                        Encapsulates pure business data representation (Employee ID, Name, Department, Category, Priority, Description) with getters, setters, and persistent storage management.
+                    </p>
+                </div>
+
+                <div class="mvc-role-card">
+                    <span class="mvc-role-tag view">View Layer</span>
+                    <h4>serviceRequest.jsp &amp; acknowledgement.jsp</h4>
+                    <p>
+                        Handles presentation and user interaction. Renders the submission form, displays server validation feedback, and outputs formatted ticket attributes and repository history.
+                    </p>
+                </div>
+
+                <div class="mvc-role-card">
+                    <span class="mvc-role-tag controller">Controller Layer</span>
+                    <h4>ServiceRequestServlet.java</h4>
+                    <p>
+                        Processes HTTP POST requests, extracts parameters, validates all fields, generates unique ticket numbers, saves to repository, binds request attributes, and forwards execution.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 IT Service Request Management System. MVC Architecture (Java Servlet, JSP & Model).</p>
+    </footer>
+
+    <!-- Client-side Interactive Script -->
+    <script src="src/main/webapp/js/script.js"></script>
+    <script>
+        let requestCounter = 1003;
+        const form = document.getElementById("serviceRequestForm");
+        const formCard = document.getElementById("requestFormCard");
+        const ackCard = document.getElementById("ackCard");
+        const btnAnother = document.getElementById("btnSubmitAnother");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const empId = document.getElementById("employeeId").value.trim();
+            const empName = document.getElementById("employeeName").value.trim();
+            const dept = document.getElementById("department").value;
+            const categoryEl = document.querySelector('input[name="problemCategory"]:checked');
+            const cat = categoryEl ? categoryEl.value : "";
+            const desc = document.getElementById("problemDescription").value.trim();
+            const priorityEl = document.querySelector('input[name="priority"]:checked');
+            const prio = priorityEl ? priorityEl.value : "Medium";
+
+            if (!empId || !empName || !dept || !cat || desc.length < 10) {
+                document.getElementById("validationAlert").style.display = "flex";
+                return;
+            }
+
+            document.getElementById("validationAlert").style.display = "none";
+
+            // Increment sequential counter
+            const currentList = getStoredRequests();
+            const nextNum = 1000 + currentList.length + 1;
+            const ticketNum = "SR-" + nextNum;
+
+            const nowTime = new Date().toLocaleString();
+
+            // Create new record object
+            const newRecord = {
+                ticketNum: ticketNum,
+                empId: empId,
+                name: empName,
+                dept: dept,
+                cat: cat,
+                prio: prio,
+                desc: desc,
+                status: "Open / Assigned to IT Queue",
+                timestamp: nowTime
+            };
+
+            // PERSIST TO STORAGE
+            saveNewRequestToStorage(newRecord);
+
+            // Update Acknowledgement view
+            document.getElementById("res-ticketNum").textContent = ticketNum;
+            document.getElementById("res-ticketNum2").textContent = ticketNum;
+            document.getElementById("res-empId").textContent = empId;
+            document.getElementById("res-empName").textContent = empName;
+            document.getElementById("res-dept").textContent = dept;
+            document.getElementById("res-category").textContent = cat;
+            document.getElementById("res-desc").textContent = desc;
+            document.getElementById("res-timestamp").textContent = nowTime;
+
+            const prioBadge = document.getElementById("res-priority");
+            prioBadge.textContent = "● " + prio + " Priority";
+            prioBadge.className = "badge " + (prio === "Low" ? "badge-low" : prio === "High" ? "badge-high" : "badge-medium");
+
+            const copyBtn = document.getElementById("btnCopyTicket");
+            if (copyBtn) copyBtn.setAttribute("data-ticket", ticketNum);
+
+            formCard.style.display = "none";
+            ackCard.style.display = "block";
+            ackCard.scrollIntoView({ behavior: "smooth" });
+        });
+
+        if (btnAnother) {
+            btnAnother.addEventListener("click", function () {
+                form.reset();
+                ackCard.style.display = "none";
+                formCard.style.display = "block";
+                formCard.scrollIntoView({ behavior: "smooth" });
+            });
+        }
+    </script>
+</body>
+</html>
